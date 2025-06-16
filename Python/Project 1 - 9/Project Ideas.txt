@@ -1,0 +1,55 @@
+"""Goal:
+Create a standalone Python script with 5 reusable utility functions that solve different problems. Each function must:
+
+Be defined with def and parameters.
+Return a value or print a result.
+Be called/invoked in your script to demonstrate it works.
+
+Example Functions (Pick 5 or Invent Your Own):
+
+Password Generator: Generates a random password of given length.
+
+Unit Converter: Converts miles to kilometers (or other units).
+
+Prime Checker: Returns True if a number is prime.
+
+String Reverser: Reverses an input string without using [::-1].
+
+List Sorter: Sorts a list numerically/alphabetically without .sort().
+
+Temprature Advisor: Advises "Wear a jacket" if temp is below 15°C.
+
+Make a slot machine using def functions. 
+
+"""
+
+
+
+Things to use in projects that i've learned CS50
+
+-Library Creation and importing (using function across files, and main() optimization)
+-unit testing and assert function
+-pytest uses and commands
+-try/expect and error pathways
+-api usage and json analyzing 
+-sys library and argv
+-File I/O
+-For loop mastery and with/open and file function
+    -with open("Bleh.txt", "r", "w", "a", )
+    -file.write/file.close()
+-dictionaries in list to represent values
+-lambda functions
+-sorted function key and parameters
+-general function paramaters
+-csv library (import csv)
+
+
+
+
+
+
+
+
+
+
+
