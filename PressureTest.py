@@ -18,7 +18,7 @@ def prompting():
 
             if orginal_unit in units: 
                 unit_value = units[orginal_unit]
-                prompt_out = {"value":orginal_value, "unit":unit_value}
+                prompt_out = {"value":orginal_value, "originalunit":unit_value}
                 bleh = False
                 return prompt_out
                 
@@ -29,11 +29,40 @@ def prompting():
             print("\nPlease enter a valid format (1st = float, 2nd = str)")
             
         
-def unit_conversion(value, unit):
-    print("Bleh")
+def prompting2():
+    bleh2 = True
+    while bleh2:
+        print("\nair pressure units (pa, bar, torr, psi, atm)")
+        time.sleep(1)
+        convert_to = str(input("What would you like to convert it to?: ")).upper()
+
+        if convert_to in units:
+            unit_convert = units[convert_to]
+            bleh2 = False
+            return unit_convert
+        
+        else:
+            print('\nPlease enter a correct unit of pressure')
+
+        
+
+
+
+def unit_conversion(value, ogunit, converto):
+    print()
+
+
+
+
 
 def main():
-    prompting()
+    output_list = prompting()
+    unit_convert = prompting2()
+    og_value = output_list['value']
+    og_unit = output_list['originalunit']
+    unit_conversion(og_value, og_unit, unit_convert)
+  
+    
 
 
 if __name__ == "__main__":
