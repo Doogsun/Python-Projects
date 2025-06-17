@@ -12,7 +12,7 @@ def prompting():
             time.sleep(1)
             orginal_value = float(input("Please enter a value of air pressure: "))
             time.sleep(1)
-            print("\nair pressure units (Pa, Bar, Rorr, Psi, atm)")
+            print("\nair pressure units (Pa, Bar, Torr, Psi, atm)")
             time.sleep(1)
             orginal_unit = str(input("Please enter the unit of measurement for the value: ")).upper()
 
@@ -32,7 +32,7 @@ def prompting():
 def prompting2():
     bleh2 = True
     while bleh2:
-        print("\nair pressure units (Pa, Bar, Rorr, Psi, atm)")
+        print("\nair pressure units (Pa, Bar, Torr, Psi, atm)")
         time.sleep(1)
         convert_to = str(input("What would you like to convert it to?: ")).upper()
 
@@ -48,26 +48,26 @@ def prompting2():
 
 def unit_conversion(value, ogunit, converto):
 
-    padict = {1:1, 2:10**-10, 3:0.000145038, 4:.00750062, 5:9.86923*10**-6}
+    padict = {1:1, 2:10**-5, 3:0.000145038, 4:.00750062, 5:9.86923*10**-6}
     bardict = {1:100000, 2:1, 3:14.5038, 4:750.062, 5:0.986923}
     psidict = {1:6894.76, 2:0.0689476, 3:1, 4:51.7149, 5:0.068046}
     torrdict = {1:133.322, 2:0.00133322, 3:0.0193368, 4:1, 5:0.00131579}
     atmdict = {1:101325, 2:1.01325, 3:14.6959, 4:760, 5:1}
     
     if ogunit == 1:
-        indexratio1 = padict.pop(converto)
+        indexratio1 = padict[converto]
         return value * indexratio1
     if ogunit == 2:
-        indexratio2 = bardict.pop(converto)
+        indexratio2 = bardict[converto]
         return value * indexratio2
     if ogunit == 3:
-        indexratio3 = psidict.pop(converto)
+        indexratio3 = psidict[converto]
         return value * indexratio3
     if ogunit == 4:
-        indexratio4 = torrdict.pop(converto)
+        indexratio4 = torrdict[converto]
         return value * indexratio4
     if ogunit == 5:
-        indexratio5 = atmdict.pop(converto)
+        indexratio5 = atmdict[converto]
         return value * indexratio5
 
 
