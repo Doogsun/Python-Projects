@@ -4,11 +4,10 @@
 import random
 import time
 
-operation_list = ["+", '-', '*']
-again = False
 
 
 def play_prompt():
+    again = True
     while again == True:
         play_again = str(input("Do you you want to play/play again? ('Y' or 'N'): " )).upper()
         if play_again == "Y":
@@ -24,6 +23,7 @@ def play_prompt():
 
 
 def prompting():
+    operation_list = ["+", '-', '*']
     while True:
         try:
             operation_type = str(input("What operation would you like to do? (+, -, *): "))
@@ -65,25 +65,27 @@ def addition(question_amount, operation_range):
             addinput = int(input(f"What is {addterm1} + {addterm2}?:  "))
             if addinput == addanswer:
                 print("\nCorrect!\n")
-                addcorrect + 1
-                adddone + 1
+                addcorrect += 1
+                adddone += 1
 
             else:
                 print("\nincorrect :(\n")
-                addwrong + 1
-                adddone + 1
+                addwrong += 1
+                adddone += 1
 
         except ValueError:
-            print("Incorrect! Please enter a interger")
-            addwrong + 1
-            adddone + 1
+            print("\nIncorrect! Please enter a interger\n")
+            addwrong += 1
+            adddone += 1
 
     if adddone == question_amount:
-        print(f"You got {addcorrect}/{question_amount} Correct ")
-    
-           
- 
+        addsmile = question_amount / 2
+        if addcorrect > addsmile:
+            print(f"You got {addcorrect}/{question_amount} Correct! You pass! :3\n  ")
 
+        elif addcorrect < addsmile:
+            print(f"You got {addcorrect}/{question_amount} Correct. You failed :(\n ")
+    
 
 def subtraction(question_amount, operation_range):
     print()
@@ -91,14 +93,16 @@ def subtraction(question_amount, operation_range):
 def multiplication(question_amount, operation_range):
     print()
 
+def play_again():
+    play_prompt()
 
 
 if __name__ == "__main__":
-    again = True
     play1 = play_prompt()
     if play1 == True:
        output1 = prompting()
        type_analysis(output1)
+       play_again()
 
            
     
