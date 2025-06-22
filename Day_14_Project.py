@@ -7,19 +7,17 @@ import time
 
 
 def play_prompt():
-    again = True
-    while again == True:
-        play_again = str(input("Do you you want to play/play again? ('Y' or 'N'): " )).upper()
-        if play_again == "Y":
-            play = True
-            return play
-            
-        if play_again == "N":
-            play = False
-            return play
+    play_again = str(input("Do you you want to play/play again? ('Y' or 'N'): " )).upper()
+    if play_again == "Y":
+        play = True
+        return play
+        
+    if play_again == "N":
+        play = False
+        return play
 
-        else:
-            print("Please enter either 'Y' or 'N'")
+    else:
+        print("Please enter either 'Y' or 'N'")
 
 
 def prompting():
@@ -93,16 +91,23 @@ def subtraction(question_amount, operation_range):
 def multiplication(question_amount, operation_range):
     print()
 
-def play_again():
-    play_prompt()
-
 
 if __name__ == "__main__":
-    play1 = play_prompt()
-    if play1 == True:
+    play = play_prompt()
+    while play == True:
        output1 = prompting()
        type_analysis(output1)
-       play_again()
+       play = play_prompt()
+    
+
+           
+    
+
+
+    
+        
+
+
 
            
     
