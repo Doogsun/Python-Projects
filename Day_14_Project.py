@@ -26,10 +26,9 @@ def play_prompt():
 def prompting():
     while True:
         try:
-            question_amount = int(input("How many questions would you like to do? (1 - 50): "))
             operation_type = str(input("What operation would you like to do? (+, -, *): "))
             operation_range = int(input("Select the terms range for the questions (1 - 100): "))
-
+            question_amount = int(input("How many questions would you like to do? (1 - 50): "))
 
             if 1 <= question_amount <= 50 and (operation_type in operation_list) and 1 <= operation_range <= 100:
                 return question_amount, operation_type, operation_range
@@ -55,16 +54,33 @@ def type_analysis(tupleoutput):
 
 
 def addition(question_amount, operation_range):
-    correct = 0
-    wrong = 0
+    addcorrect = 0
+    addwrong = 0
+    adddone = 0
     for question in range (1, question_amount + 1):
         try:
-            term1 = random.randint(1, operation_range)
-            term2 = random.randint(1, operation_range)
-            answer = int(input(f"{term1} + {term2}: "))
-            
+            addterm1 = random.randint(1, operation_range)
+            addterm2 = random.randint(1, operation_range)
+            addanswer = addterm1 + addterm2
+            addinput = int(input(f"What is {addterm1} + {addterm2}?:  "))
+            if addinput == addanswer:
+                print("\nCorrect!\n")
+                addcorrect + 1
+                adddone + 1
+
+            else:
+                print("\nincorrect :(\n")
+                addwrong + 1
+                adddone + 1
+
         except ValueError:
-            print("Please enter a correct answer format (int)")
+            print("Incorrect! Please enter a interger")
+            addwrong + 1
+            adddone + 1
+
+    if adddone == question_amount:
+        print(f"You got {addcorrect}/{question_amount} Correct ")
+    
            
  
 
