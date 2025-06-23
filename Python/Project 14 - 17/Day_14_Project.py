@@ -22,6 +22,7 @@ def play_prompt():
 
 def prompting():
     operation_list = ["+", '-', '*']
+
     while True:
         try:
             operation_type = str(input("What operation would you like to do? (+, -, *): "))
@@ -85,7 +86,6 @@ def addition(question_amount, operation_range):
             print(f"You got {addcorrect}/{question_amount}. You failed :(\n ")
     
 
-
 def subtraction(question_amount, operation_range):
     subcorrect = 0 
     subwrong = 0 
@@ -99,8 +99,7 @@ def subtraction(question_amount, operation_range):
                     subanswer = subterm1 - subterm2
                     subinput = int(input(f"What is {subterm1} - {subterm2} ?: "))
                     break
-                else:
-                    print("Generation attemp placeholder")
+                
 
             if subinput == subanswer:
                 print("\nCorrect!\n")
