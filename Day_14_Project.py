@@ -3,7 +3,7 @@
 
 import random
 import time
-
+import cowsay
 
 
 def play_prompt():
@@ -82,14 +82,83 @@ def addition(question_amount, operation_range):
             print(f"You got {addcorrect}/{question_amount} Correct! You pass! :3\n  ")
 
         elif addcorrect < addsmile:
-            print(f"You got {addcorrect}/{question_amount} Correct. You failed :(\n ")
+            print(f"You got {addcorrect}/{question_amount}. You failed :(\n ")
     
 
+
 def subtraction(question_amount, operation_range):
-    print()
+    subcorrect = 0 
+    subwrong = 0 
+    subdone = 0
+    for question in range(1, question_amount + 1):
+        try:
+            while True:
+                subterm1 = random.randint(1, operation_range)
+                subterm2 = random.randint(1, operation_range)
+                if subterm1 >= subterm2:
+                    subanswer = subterm1 - subterm2
+                    subinput = int(input(f"What is {subterm1} - {subterm2} ?: "))
+                    break
+                else:
+                    print("Generation attemp placeholder")
+
+            if subinput == subanswer:
+                print("\nCorrect!\n")
+                subcorrect += 1
+                subdone += 1
+
+            else:
+                print("\nincorrect :(\n")
+                subwrong += 1
+                subdone += 1
+
+
+        except ValueError:
+            print("\nIncorrect! Please enter a interger")
+            subwrong += 1   
+            subdone += 1
+
+    if subinput == subanswer:
+        addsmile = question_amount / 2
+        if subcorrect > addsmile:
+            print(f"You got {subcorrect}/{question_amount} Correct! You pass! :3\n  ")
+
+        elif subcorrect < addsmile:
+            print(f"You got {subcorrect}/{question_amount}. You failed :(\n ")
+
 
 def multiplication(question_amount, operation_range):
-    print()
+    mulcorrect = 0
+    mulwrong = 0
+    muldone = 0
+    for question in range (1, question_amount + 1):
+        try:
+            multerm1 = random.randint(1, operation_range)
+            multerm2 = random.randint(1, operation_range)
+            mulanswer = multerm1 * multerm2
+            mulinput = int(input(f"What is {multerm1} x {multerm2} ?:  "))
+            if mulinput == mulanswer:
+                print("\nCorrect!\n")
+                mulcorrect += 1
+                muldone += 1
+
+            else:
+                print("\nincorrect :(\n")
+                mulwrong += 1
+                muldone += 1
+
+        except ValueError:
+            print("\nIncorrect! Please enter a interger\n")
+            mulwrong += 1
+            muldone += 1
+
+    if muldone == question_amount:
+        mulsmile = question_amount / 2
+        if mulcorrect > mulsmile:
+            print(f"You got {mulcorrect}/{question_amount} Correct! You pass! :3\n  ")
+
+        elif mulcorrect < mulsmile:
+            print(f"You got {mulcorrect}/{question_amount}. You failed :(\n ")
 
 
 if __name__ == "__main__":

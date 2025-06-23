@@ -7,6 +7,7 @@ import time
 
 
 def play_prompt():
+    print("Mental Math Trainer\n")
     play_again = str(input("Do you you want to play/play again? ('Y' or 'N'): " )).upper()
     if play_again == "Y":
         play = True
@@ -25,10 +26,10 @@ def prompting():
     while True:
         try:
             operation_type = str(input("What operation would you like to do? (+, -, *): "))
-            operation_range = int(input("Select the terms range for the questions (1 - 100): "))
+            operation_range = int(input("Select the terms range for the questions (1 - 99): "))
             question_amount = int(input("How many questions would you like to do? (1 - 50): "))
 
-            if 1 <= question_amount <= 50 and (operation_type in operation_list) and 1 <= operation_range <= 100:
+            if 1 <= question_amount <= 50 and (operation_type in operation_list) and 1 <= operation_range <= 99:
                 return question_amount, operation_type, operation_range
             else:
                 print("\nPlease enter a question amount between 1 - 50, and a valid operatino symbol.")
@@ -89,7 +90,37 @@ def subtraction(question_amount, operation_range):
     print()
 
 def multiplication(question_amount, operation_range):
-    print()
+    mulcorrect = 0
+    mulwrong = 0
+    muldone = 0
+    for question in range (1, question_amount + 1):
+        try:
+            multerm1 = random.randint(1, operation_range)
+            multerm2 = random.randint(1, operation_range)
+            mulanswer = multerm1 * multerm2
+            mulinput = int(input(f"What is {multerm1} x {multerm2} ?:  "))
+            if mulinput == mulanswer:
+                print("\nCorrect!\n")
+                mulcorrect += 1
+                muldone += 1
+
+            else:
+                print("\nincorrect :(\n")
+                mulwrong += 1
+                muldone += 1
+
+        except ValueError:
+            print("\nIncorrect! Please enter a interger\n")
+            mulwrong += 1
+            muldone += 1
+
+    if muldone == question_amount:
+        mulsmile = question_amount / 2
+        if mulcorrect > mulsmile:
+            print(f"You got {mulcorrect}/{question_amount} Correct! You pass! :3\n  ")
+
+        elif mulcorrect < mulsmile:
+            print(f"You got {mulcorrect}/{question_amount} Correct. You failed :(\n ")
 
 
 if __name__ == "__main__":
