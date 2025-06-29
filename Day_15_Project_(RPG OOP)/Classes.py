@@ -7,14 +7,14 @@ class Warrior:
 
         
 
-    def basic_atk(self):
+    def basic_atk(self, strstat, hpstat):
         print("\nWith a hefty swing of ol-betsy... you slash at your opponent\n")
-        enemyhp -= 2 
+        #enemyhp -= 2 
 
-    def warriors_serrate(self):
+    def warriors_serrate(self, strstat, hpstat):
         print("\nol-betsy stances up... a swift dual slash grates your opponent")
-        enemyhp -= 2
-        bleeding = True
+        #enemyhp -= 2
+        #bleeding = True
 
 
 
@@ -25,14 +25,14 @@ class Wizard:
         self.arcstat = arcstat
         self.hpstat = hpstat
 
-    def basic_atk(self):
+    def basic_atk(self, arcstat, hpstat):
         print("Magic pools around you.. You send an arcane bolt at your opponent ")
-        enemyhp -= 2 
+        #enemyhp -= 2 
 
-    def magic_rain(self):
+    def magic_rain(self, arcstat, hpstat):
         print("Magic surges into the sky.. You rain spiked shards of arcane down onto your opponent")
-        enemyhp -= 2
-        bleeding = True
+        #enemyhp -= 2
+        #bleeding = True
 
 
 
@@ -43,11 +43,11 @@ class Rogue:
         self.dexstat = dexstat
         self.hpstat = hpstat
 
-    def basic_atk(self):
+    def basic_atk(self, dexstat, hpstat):
         print("A wisp of a robe is heard.. You execute a smooth, in and out slice with your dagger")
-        enemyhp -= 2 
+        #enemyhp -= 2 
 
-    def ankle_cutter(self):
+    def ankle_cutter(self, dexstat, hpstat):
         print("A shadow slids across the floor.. You slash at your opponents ankles")
-        enemyhp -= 2
-        bleeding = True
+        #enemyhp -= 2
+        #bleeding = True
