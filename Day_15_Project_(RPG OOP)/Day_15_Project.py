@@ -16,13 +16,13 @@ def Opening_menu(runamount):
 
 
     if runamount == 1:
-        print("\nWELCOME ADVENTURER! We need your help! There are 3, vicous monsters we need you to slay...\nChoose your class and defaet these foes! --> This is the main menu ")
+        print("\nWELCOME ADVENTURER! We need your help! There are 3, vicous monsters we need you to slay...\nChoose your class and defaet these foes! --> This is the main menu\n ")
 
     elif runamount > 1:
         ...
 
     while True:
-        print("\n\nMain Menu --> Choose a menu/option!\n\n  Fight 💥\n\n  Change Class 📖\n\n  Exit ❌\n")
+        print("\nMain Menu --> Choose a menu/option!\n\n  Fight 💥\n\n  Change Class 📖\n\n  Exit ❌\n")
         menu_input = input("> ").upper()
 
         if menu_input in ("F", "FI", "FIG", "FIGH", "FIGHT", "⚔️"):
@@ -54,7 +54,7 @@ def ChangeClass_Menu():
             if stattype_war in ("S", 'ST', 'STA', 'STAN', 'STAND', 'STANDA' 'STANDAR', 'STANDARD'):
                 warstat1 = 2
                 warstat2 = 2
-                return (warstat1, warstat2)
+                return (warstat1, warstat2, set_class)
                 
 
             elif stattype_war in ("C", 'CU', 'CUS', 'CUST', 'CUSTO', 'CUSTOM'):
@@ -79,7 +79,6 @@ def ChangeClass_Menu():
             if stattype_wiz in ("S", 'ST', 'STA', 'STAN', 'STAND', 'STANDA' 'STANDAR', 'STANDARD'):
                 wizstat1 = 2
                 wizstat2 = 2
-                print(f"\n{wizstat1} {wizstat2}\n")
                 return (wizstat1, wizstat2, set_class)
                 
 
@@ -121,22 +120,94 @@ def ChangeClass_Menu():
                         print("\nInvalid! Enter an integer")
 
 
+def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) of enemy or make it random, have it return stat data for enemies/ selected enemy
+    if changeoutput[2] == "WAR":
+        selcted_class = "Warrior"
+
+    elif changeoutput[2] == "WIZ":
+        seleected_class = "Wizard"
+
+    elif changeoutput[2] == "ROG":
+        selected_class = 'Rogue'
+
+    while True:
+        print("\n\nFight Menu --> Choose a opponent!\n\n  Goblin 🪓\n\n  Stone Golem 🪨\n\n  RAH THE SUN GOD ☀️\n")
+        fight_input = input("> ").upper()
+        
+        if fight_input in ('G', 'GO', 'GOB', 'GOBL', 'GOBLI', 'GOBLIN'):
+            
+            stattype_goblin = input("\n\nStat Menu --> Standard or Random or Custom?\n*Warning. Random stat will not be balanced..*\n\n> ").upper()
+            if stattype_goblin in ('S', 'ST', 'STA', 'STAN', 'STAND', 'STANDA', 'STANDAR', 'STANDARD'):
+                goblinstat1 = 2
+                goblinstat2 = 2
+            if stattype_goblin in ('R', 'RA', 'RAN', 'RAND', 'RANDO', 'RANDOM'):
+                goblinstat1 = random.randint(1, 10)
+                goblinstat2 = random.randint(1, 10)
+            
+            if stattype_goblin in ('C', 'CU', 'CUS', 'CUST', 'CUSTO', 'CUSTOM'):
+                while True:
+                        try:
+                            print("\n--------------------------------------------")
+                            rogstat1 = int(input("              Set the Level.\n\n> "))
+                            print("\n--------------------------------------------")
+                            rogstat2 = int(input("              Set the BaseHP stat.\n\n> "))
+                            return ...
+                            
+                            
+                        except ValueError:
+                            print("\nInvalid! Enter an integer")
+
+
+            print(f"Your Class: {selected_class}")
+            print("")
+            print("Your opponent: Goblin")
+            print(f"The Goblin stats: level = {goblinstat1}, BaseHp Stat = {goblinstat2}")
+
+            print("\nEnter Confirm or Deny")
+            confirm = input(">")
+            if confirm in ('C', 'CO', 'CON', 'CONF', 'CONFI', 'CONFIR', 'CONFIRM'):
+                break
+
+        #addon point for wiza and rog    
+
+
+
+
+
+
+
+
+def fighting():
+    pass
+
+
+
 
 def main():
     
     runamount = 1 #checks to display the welcome message
 
-
     while True:
         currentmenu = Opening_menu(runamount)
         if currentmenu in menu_index:
             if currentmenu == 1:
-                ...
+                try:
+                    runamount += 1
+                    fight_menu(changeoutput)
+
+                except UnboundLocalError:
+                    print("\n\nPlease select a class first. (Change class)")
+
+
             elif currentmenu == 2:
-                ChangeClass_Menu()
+                changeoutput = ChangeClass_Menu()
                 runamount += 1
+               
             elif currentmenu == 3:
                 break
+            
+
+        
 
 
 main()
