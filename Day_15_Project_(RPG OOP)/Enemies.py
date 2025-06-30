@@ -1,25 +1,33 @@
 class Goblin:
 
-    def __init__ (self, level, hpstat):
-        self.level = level
-        self.hpstat = hpstat
-        hpstat + level = hpstat
 
-    def goblin_punch(self, level):
-        print("A lowly growl crawls out of the green baby... a wild haymaker gets thrown thrown at you.  ")
+    def __init__ (self, level, hpstat):
+
+        self.level = 1 + level
+        self.hpstat = 1 + hpstat
+        if hpstat > 0:
+            self.isalive = True
+
+   
+
+    def punch(self):
+        print("\nA lowly growl crawls out of the green baby... a wild haymaker gets thrown thrown at you.\n")
         #hp -= 1 
 
-    def goblin_smash(self, level, hpstat):
-        print("A a disgruntled scowl forms on the green baby... With a leap into the air, a set of green fists fly towards you.")
+    def smash(self):
+        print("\nA a disgruntled scowl forms on the green baby... With a leap into the air, a set of green fists fly towards you.\n")
         #hp -= 2 
         
 
-    def goblin_fury(self, level, hpstast):
-        print('Fury build within the green baby... A cascade of low slashes sweep your ankles.')
+    def fury(self):
+        print('\nFury build within the green baby... A cascade of low slashes sweep your ankles.\n')
         #hp -=3
         #bleeding = True
 
 
-    def goblin_evolve(self, level, hpstat ):
-        print("GRAVITY HAS BROUGHT ME HERE FOR A REASON... THE STARS HAVE ALIGNED!!! THE TIME OF EVOLUTION IS NOW!!!")
+    def evolve(self):
+        print("\nGRAVITY HAS BROUGHT ME HERE FOR A REASON... THE STARS HAVE ALIGNED!!! THE TIME OF EVOLUTION IS NOW!!!\n")
         #become made in heaven and kill everyone
+
+goblin1 = Goblin(5, 10)
+print(goblin1.level, goblin1.hpstat)
