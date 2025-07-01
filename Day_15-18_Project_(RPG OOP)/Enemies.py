@@ -2,8 +2,8 @@ class Goblin:
 
     def __init__ (self, level, hpstat):
 
-        self.level = 1 + level
-        self.hpstat = 1 + hpstat
+        self.level = level
+        self.hpstat = hpstat + (2 * level)
         if hpstat > 0:
             self.isalive = True
 
@@ -32,8 +32,8 @@ class Goblin:
 class Golem:
 
     def __init__(self, level, hpstat):
-        self.level = 1 + level
-        self.hpstat = 1 + hpstat
+        self.level = level
+        self.hpstat = hpstat (2 * level)
         if hpstat > 0:
             self.isalive = True
 
@@ -60,7 +60,7 @@ class RAH:
 
     def __init__(self, level, hpstat):
         self.level = level
-        self.hpstat = hpstat
+        self.hpstat = hpstat + (2 * level)
         if hpstat > 0:
             self.isalive = True
 

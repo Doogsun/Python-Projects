@@ -140,12 +140,12 @@ def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) o
             while True:
                 stattype_goblin = input("\n\nStat Menu --> Standard or Random or Custom?\n*Warning. Random stat will not be balanced..*\n\n> ").upper()
                 if stattype_goblin in ('S', 'ST', 'STA', 'STAN', 'STAND', 'STANDA', 'STANDAR', 'STANDARD'):
-                    goblinstat1 = ...
-                    goblinstat2 = ...
+                    goblinstat1 = 5
+                    goblinstat2 = 10
                 if stattype_goblin in ('R', 'RA', 'RAN', 'RAND', 'RANDO', 'RANDOM'):
                     
-                    goblinstat1 = random.randint(1, 10)
-                    goblinstat2 = random.randint(1, 10)
+                    goblinstat1 = random.randint(1, 20)
+                    goblinstat2 = random.randint(1, 20)
                 
                 if stattype_goblin in ('C', 'CU', 'CUS', 'CUST', 'CUSTO', 'CUSTOM'):
                     while True:
@@ -166,7 +166,7 @@ def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) o
                 print(f"The Goblin stats: BaseHp Stat = {goblinstat2}, Level = {goblinstat1},")
 
                 print("\nEnter Confirm or Deny\n")
-                goahead = input("> ")
+                goahead = input("> ").upper()
                 if goahead in ('C', 'CO', 'CON', 'CONF', 'CONFI', 'CONFIR', 'CONFIRM'):
                     
                     return (goblinstat1, goblinstat2, enemy)
@@ -181,12 +181,12 @@ def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) o
             while True:
                 stattype_stone = input("\n\nStat Menu --> Standard or Random or Custom?\n*Warning. Random stat will not be balanced..*\n\n> ").upper()
                 if stattype_stone in ('S', 'ST', 'STA', 'STAN', 'STAND', 'STANDA', 'STANDAR', 'STANDARD'):
-                    stonestat1 = ...
-                    stonestat2 = ...
+                    stonestat1 = 10
+                    stonestat2 = 20
                 if stattype_stone in ('R', 'RA', 'RAN', 'RAND', 'RANDO', 'RANDOM'):
                     
-                    stonestat1 = random.randint(1, 20)
-                    stonestat2 = random.randint(1, 20)
+                    stonestat1 = random.randint(1, 30)
+                    stonestat2 = random.randint(1, 30)
                 
                 if stattype_stone in ('C', 'CU', 'CUS', 'CUST', 'CUSTO', 'CUSTOM'):
                     while True:
@@ -223,8 +223,8 @@ def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) o
             while True:
                 stattype_RAH = input("\n\nStat Menu --> Standard or Random or Custom?\n*Warning. Random stat will not be balanced..*\n\n> ").upper()
                 if stattype_RAH in ('S', 'ST', 'STA', 'STAN', 'STAND', 'STANDA', 'STANDAR', 'STANDARD'):
-                    RAHstat1 = ...
-                    RAHstat2 = ...
+                    RAHstat1 = 15
+                    RAHstat2 = 30
                 if stattype_RAH in ('R', 'RA', 'RAN', 'RAND', 'RANDO', 'RANDOM'):
                     
                     RAHstat1 = random.randint(1, 30)
@@ -261,8 +261,43 @@ def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) o
 
 
 
-def fighting():
-    pass
+def fighting(fightdata): #0-enemystat1, 1-enemystat, 2-enemybeingfought
+    if fightdata[2] == "GOB":
+        goblin1 = Goblin(fightdata[0], fightdata[1])
+        print(goblin1.level, goblin1.hpstat)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    if fightdata[2] == "STONE":
+        stone1 = Golem(fightdata[0], fightdata[1])
+
+
+    if fightdata[2] == "RAH":
+        rah1 = RAH(fightdata[0], fightdata[1])
 
 
 
@@ -277,9 +312,10 @@ def main():
             if currentmenu == 1:
                 try:
                     runamount += 2
-                    fight_menu(changeoutput)
+                    fightdata = fight_menu(changeoutput)
+                    fighting(fightdata)
 
-                except UnboundLocalError:
+                except ...:
                     print("\n\nPlease select a class first. (Change class)")
 
 
@@ -290,7 +326,7 @@ def main():
             elif currentmenu == 3:
                 break
             
-
+        
         
 
 if __name__ == "__main__":
