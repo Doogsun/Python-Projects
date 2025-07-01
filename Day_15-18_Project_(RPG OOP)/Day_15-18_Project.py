@@ -6,6 +6,9 @@ import random
 
 from Classes import Warrior, Wizard, Rogue
 from Enemies import Goblin
+from Enemies import Golem
+from Enemies import RAH
+
 
 #1 = Fight, 2 = class change, 3 = exit
 menu_index = [1 , 2, 3]
