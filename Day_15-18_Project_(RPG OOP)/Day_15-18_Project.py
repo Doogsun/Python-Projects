@@ -136,6 +136,7 @@ def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) o
         fight_input = input("> ").upper()
         
         if fight_input in ('G', 'GO', 'GOB', 'GOBL', 'GOBLI', 'GOBLIN'):
+            enemy = "GOB"
             while True:
                 stattype_goblin = input("\n\nStat Menu --> Standard or Random or Custom?\n*Warning. Random stat will not be balanced..*\n\n> ").upper()
                 if stattype_goblin in ('S', 'ST', 'STA', 'STAN', 'STAND', 'STANDA', 'STANDAR', 'STANDARD'):
@@ -153,7 +154,7 @@ def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) o
                                 goblinstat1 = int(input("              Set the Level.\n\n> "))
                                 print("\n--------------------------------------------")
                                 goblinstat2 = int(input("              Set the BaseHP stat.\n\n> "))
-                                return ...
+                                break
                                 
                                 
                             except ValueError:
@@ -167,13 +168,16 @@ def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) o
                 print("\nEnter Confirm or Deny\n")
                 goahead = input("> ")
                 if goahead in ('C', 'CO', 'CON', 'CONF', 'CONFI', 'CONFIR', 'CONFIRM'):
-                    break
+                    
+                    return (goblinstat1, goblinstat2, enemy)
+
                 if goahead in ('D', 'DE', 'DEN', 'DENY'):
                     pass
 
 
 
         if fight_input in ('S', 'ST', 'STO', 'STON', 'STONE', 'G', 'G', 'GO', 'GOL', 'GOLE', 'GOLEM', 'GOLEM ', 'STONE ' 'STONE', 'STONE G', 'STONE GO', 'STONE GOL', 'STONE GOLE', 'STONE GOLEM'):
+            enemy = "STONE"
             while True:
                 stattype_stone = input("\n\nStat Menu --> Standard or Random or Custom?\n*Warning. Random stat will not be balanced..*\n\n> ").upper()
                 if stattype_stone in ('S', 'ST', 'STA', 'STAN', 'STAND', 'STANDA', 'STANDAR', 'STANDARD'):
@@ -181,8 +185,8 @@ def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) o
                     stonestat2 = ...
                 if stattype_stone in ('R', 'RA', 'RAN', 'RAND', 'RANDO', 'RANDOM'):
                     
-                    stonestat1 = random.randint(1, 10)
-                    stonestat2 = random.randint(1, 10)
+                    stonestat1 = random.randint(1, 20)
+                    stonestat2 = random.randint(1, 20)
                 
                 if stattype_stone in ('C', 'CU', 'CUS', 'CUST', 'CUSTO', 'CUSTOM'):
                     while True:
@@ -191,7 +195,7 @@ def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) o
                                 stonestat1 = int(input("              Set the Level.\n\n> "))
                                 print("\n--------------------------------------------")
                                 stonestat2 = int(input("              Set the BaseHP stat.\n\n> "))
-                                return ...
+                                break
                                 
                                 
                             except ValueError:
@@ -203,9 +207,11 @@ def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) o
                 print(f"The Stone Golem's stats: BaseHp Stat = {stonestat2}, Level = {stonestat1},")
 
                 print("\nEnter Confirm or Deny\n")
-                goahead = input("> ")
+                goahead = input("> ").upper()
                 if goahead in ('C', 'CO', 'CON', 'CONF', 'CONFI', 'CONFIR', 'CONFIRM'):
-                    break
+                    
+                    return (stonestat1, stonestat2, enemy)
+
                 if goahead in ('D', 'DE', 'DEN', 'DENY'):
                     pass
 
@@ -213,6 +219,7 @@ def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) o
 
 
         if fight_input in ('R', 'RA', 'RAH','RAH ','RAH T', 'RAH TH', 'RAH THE', 'RAH THE ', 'RAH THE S', 'RAH THE SU', 'RAH THE SUN', 'bleh', 'RAH THE SUN ', 'RAH THE SUN G', 'RAH THE SUN GO', 'RAH THE SUN GOD', '☀️'):
+            enemy = "RAH"
             while True:
                 stattype_RAH = input("\n\nStat Menu --> Standard or Random or Custom?\n*Warning. Random stat will not be balanced..*\n\n> ").upper()
                 if stattype_RAH in ('S', 'ST', 'STA', 'STAN', 'STAND', 'STANDA', 'STANDAR', 'STANDARD'):
@@ -220,8 +227,8 @@ def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) o
                     RAHstat2 = ...
                 if stattype_RAH in ('R', 'RA', 'RAN', 'RAND', 'RANDO', 'RANDOM'):
                     
-                    RAHstat1 = random.randint(1, 10)
-                    RAHstat2 = random.randint(1, 10)
+                    RAHstat1 = random.randint(1, 30)
+                    RAHstat2 = random.randint(1, 30)
                 
                 if stattype_RAH in ('C', 'CU', 'CUS', 'CUST', 'CUSTO', 'CUSTOM'):
                     while True:
@@ -230,7 +237,7 @@ def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) o
                                 RAHstat1 = int(input("              Set the Level.\n\n> "))
                                 print("\n--------------------------------------------")
                                 RAHstat2 = int(input("              Set the BaseHP stat.\n\n> "))
-                                return ...
+                                break
                                 
                                 
                             except ValueError:
@@ -242,9 +249,11 @@ def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) o
                 print(f"RAH THE SUN GODS stats: BaseHp Stat = {RAHstat2}, Level = {RAHstat1},")
 
                 print("\nEnter Confirm or Deny\n")
-                goahead = input("> ")
+                goahead = input("> ").upper()
                 if goahead in ('C', 'CO', 'CON', 'CONF', 'CONFI', 'CONFIR', 'CONFIRM'):
-                    break
+                    
+                    return (RAHstat1, RAHstat2, enemy)
+
                 if goahead in ('D', 'DE', 'DEN', 'DENY'):
                     pass
 
@@ -284,7 +293,7 @@ def main():
 
         
 
-
-main()
+if __name__ == "__main__":
+    main()
 
 
