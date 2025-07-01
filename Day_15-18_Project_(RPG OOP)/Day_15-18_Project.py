@@ -5,9 +5,7 @@ import random
 
 
 from Classes import Warrior, Wizard, Rogue
-from Enemies import Goblin
-from Enemies import Golem
-from Enemies import RAH
+from Enemies import Goblin, Golem, RAH
 
 
 #1 = Fight, 2 = class change, 3 = exit
@@ -55,8 +53,8 @@ def ChangeClass_Menu():
             set_class = "WAR"
             stattype_war = input("\n\nStat Menu --> Standard or Custom?\n\n> ").upper()
             if stattype_war in ("S", 'ST', 'STA', 'STAN', 'STAND', 'STANDA' 'STANDAR', 'STANDARD'):
-                warstat1 = 2
-                warstat2 = 2
+                warstat1 = ...
+                warstat2 = ...
                 return (warstat1, warstat2, set_class)
                 
 
@@ -80,8 +78,8 @@ def ChangeClass_Menu():
             set_class = "WIZ"
             stattype_wiz = input("\n\nStat Menu --> Standard or Custom?\n\n> ").upper()
             if stattype_wiz in ("S", 'ST', 'STA', 'STAN', 'STAND', 'STANDA' 'STANDAR', 'STANDARD'):
-                wizstat1 = 2
-                wizstat2 = 2
+                wizstat1 = ...
+                wizstat2 = ...
                 return (wizstat1, wizstat2, set_class)
                 
 
@@ -104,8 +102,8 @@ def ChangeClass_Menu():
             set_class = "ROG"
             stattype_rog = input("\n\nStat Menu --> Standard or Custom?\n\n> ").upper()
             if stattype_rog in ("S", 'ST', 'STA', 'STAN', 'STAND', 'STANDA' 'STANDAR', 'STANDARD'):
-                rogstat1 = 2
-                rogstat2 = 2
+                rogstat1 = ...
+                rogstat2 = ...
                 return (rogstat1, rogstat2, set_class)
                 
 
@@ -125,56 +123,130 @@ def ChangeClass_Menu():
 
 def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) of enemy or make it random, have it return stat data for enemies/ selected enemy
     if changeoutput[2] == "WAR":
-        selcted_class = "Warrior"
+        select_class = "Warrior"
 
     elif changeoutput[2] == "WIZ":
-        seleected_class = "Wizard"
+        select_class = "Wizard"
 
     elif changeoutput[2] == "ROG":
-        selected_class = 'Rogue'
+        select_class = 'Rogue'
 
     while True:
         print("\n\nFight Menu --> Choose a opponent!\n\n  Goblin 🪓\n\n  Stone Golem 🪨\n\n  RAH THE SUN GOD ☀️\n")
         fight_input = input("> ").upper()
         
         if fight_input in ('G', 'GO', 'GOB', 'GOBL', 'GOBLI', 'GOBLIN'):
-            
-            stattype_goblin = input("\n\nStat Menu --> Standard or Random or Custom?\n*Warning. Random stat will not be balanced..*\n\n> ").upper()
-            if stattype_goblin in ('S', 'ST', 'STA', 'STAN', 'STAND', 'STANDA', 'STANDAR', 'STANDARD'):
-                goblinstat1 = 2
-                goblinstat2 = 2
-            if stattype_goblin in ('R', 'RA', 'RAN', 'RAND', 'RANDO', 'RANDOM'):
-                goblinstat1 = random.randint(1, 10)
-                goblinstat2 = random.randint(1, 10)
-            
-            if stattype_goblin in ('C', 'CU', 'CUS', 'CUST', 'CUSTO', 'CUSTOM'):
-                while True:
-                        try:
-                            print("\n--------------------------------------------")
-                            rogstat1 = int(input("              Set the Level.\n\n> "))
-                            print("\n--------------------------------------------")
-                            rogstat2 = int(input("              Set the BaseHP stat.\n\n> "))
-                            return ...
-                            
-                            
-                        except ValueError:
-                            print("\nInvalid! Enter an integer")
+            while True:
+                stattype_goblin = input("\n\nStat Menu --> Standard or Random or Custom?\n*Warning. Random stat will not be balanced..*\n\n> ").upper()
+                if stattype_goblin in ('S', 'ST', 'STA', 'STAN', 'STAND', 'STANDA', 'STANDAR', 'STANDARD'):
+                    goblinstat1 = ...
+                    goblinstat2 = ...
+                if stattype_goblin in ('R', 'RA', 'RAN', 'RAND', 'RANDO', 'RANDOM'):
+                    
+                    goblinstat1 = random.randint(1, 10)
+                    goblinstat2 = random.randint(1, 10)
+                
+                if stattype_goblin in ('C', 'CU', 'CUS', 'CUST', 'CUSTO', 'CUSTOM'):
+                    while True:
+                            try:
+                                print("\n--------------------------------------------")
+                                goblinstat1 = int(input("              Set the Level.\n\n> "))
+                                print("\n--------------------------------------------")
+                                goblinstat2 = int(input("              Set the BaseHP stat.\n\n> "))
+                                return ...
+                                
+                                
+                            except ValueError:
+                                print("\nInvalid! Enter an integer")
 
 
-            print(f"Your Class: {selected_class}")
-            print("")
-            print("Your opponent: Goblin")
-            print(f"The Goblin stats: level = {goblinstat1}, BaseHp Stat = {goblinstat2}")
+                print(f"\nYour Class: {select_class}")
+                print("Your opponent: Goblin\n")
+                print(f"The Goblin stats: BaseHp Stat = {goblinstat2}, Level = {goblinstat1},")
 
-            print("\nEnter Confirm or Deny")
-            confirm = input(">")
-            if confirm in ('C', 'CO', 'CON', 'CONF', 'CONFI', 'CONFIR', 'CONFIRM'):
-                break
-
-        #addon point for wiza and rog    
-
+                print("\nEnter Confirm or Deny\n")
+                goahead = input("> ")
+                if goahead in ('C', 'CO', 'CON', 'CONF', 'CONFI', 'CONFIR', 'CONFIRM'):
+                    break
+                if goahead in ('D', 'DE', 'DEN', 'DENY'):
+                    pass
 
 
+
+        if fight_input in ('S', 'ST', 'STO', 'STON', 'STONE', 'G', 'G', 'GO', 'GOL', 'GOLE', 'GOLEM', 'GOLEM ', 'STONE ' 'STONE', 'STONE G', 'STONE GO', 'STONE GOL', 'STONE GOLE', 'STONE GOLEM'):
+            while True:
+                stattype_stone = input("\n\nStat Menu --> Standard or Random or Custom?\n*Warning. Random stat will not be balanced..*\n\n> ").upper()
+                if stattype_stone in ('S', 'ST', 'STA', 'STAN', 'STAND', 'STANDA', 'STANDAR', 'STANDARD'):
+                    stonestat1 = ...
+                    stonestat2 = ...
+                if stattype_stone in ('R', 'RA', 'RAN', 'RAND', 'RANDO', 'RANDOM'):
+                    
+                    stonestat1 = random.randint(1, 10)
+                    stonestat2 = random.randint(1, 10)
+                
+                if stattype_stone in ('C', 'CU', 'CUS', 'CUST', 'CUSTO', 'CUSTOM'):
+                    while True:
+                            try:
+                                print("\n--------------------------------------------")
+                                stonestat1 = int(input("              Set the Level.\n\n> "))
+                                print("\n--------------------------------------------")
+                                stonestat2 = int(input("              Set the BaseHP stat.\n\n> "))
+                                return ...
+                                
+                                
+                            except ValueError:
+                                print("\nInvalid! Enter an integer")
+
+
+                print(f"\nYour Class: {select_class}")
+                print("Your opponent: Stone Golem\n")
+                print(f"The Stone Golem's stats: BaseHp Stat = {stonestat2}, Level = {stonestat1},")
+
+                print("\nEnter Confirm or Deny\n")
+                goahead = input("> ")
+                if goahead in ('C', 'CO', 'CON', 'CONF', 'CONFI', 'CONFIR', 'CONFIRM'):
+                    break
+                if goahead in ('D', 'DE', 'DEN', 'DENY'):
+                    pass
+
+        
+
+
+        if fight_input in ('R', 'RA', 'RAH','RAH ','RAH T', 'RAH TH', 'RAH THE', 'RAH THE ', 'RAH THE S', 'RAH THE SU', 'RAH THE SUN', 'bleh', 'RAH THE SUN ', 'RAH THE SUN G', 'RAH THE SUN GO', 'RAH THE SUN GOD', '☀️'):
+            while True:
+                stattype_RAH = input("\n\nStat Menu --> Standard or Random or Custom?\n*Warning. Random stat will not be balanced..*\n\n> ").upper()
+                if stattype_RAH in ('S', 'ST', 'STA', 'STAN', 'STAND', 'STANDA', 'STANDAR', 'STANDARD'):
+                    RAHstat1 = ...
+                    RAHstat2 = ...
+                if stattype_RAH in ('R', 'RA', 'RAN', 'RAND', 'RANDO', 'RANDOM'):
+                    
+                    RAHstat1 = random.randint(1, 10)
+                    RAHstat2 = random.randint(1, 10)
+                
+                if stattype_RAH in ('C', 'CU', 'CUS', 'CUST', 'CUSTO', 'CUSTOM'):
+                    while True:
+                            try:
+                                print("\n--------------------------------------------")
+                                RAHstat1 = int(input("              Set the Level.\n\n> "))
+                                print("\n--------------------------------------------")
+                                RAHstat2 = int(input("              Set the BaseHP stat.\n\n> "))
+                                return ...
+                                
+                                
+                            except ValueError:
+                                print("\nInvalid! Enter an integer")
+
+
+                print(f"\nYour Class: {select_class}")
+                print("Your opponent: RAH THE SUN GOD ☀️\n")
+                print(f"RAH THE SUN GODS stats: BaseHp Stat = {RAHstat2}, Level = {RAHstat1},")
+
+                print("\nEnter Confirm or Deny\n")
+                goahead = input("> ")
+                if goahead in ('C', 'CO', 'CON', 'CONF', 'CONFI', 'CONFIR', 'CONFIRM'):
+                    break
+                if goahead in ('D', 'DE', 'DEN', 'DENY'):
+                    pass
 
 
 
@@ -195,7 +267,7 @@ def main():
         if currentmenu in menu_index:
             if currentmenu == 1:
                 try:
-                    runamount += 1
+                    runamount += 2
                     fight_menu(changeoutput)
 
                 except UnboundLocalError:
