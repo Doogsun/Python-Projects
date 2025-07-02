@@ -1,30 +1,3 @@
-"Practice oob and make a rpg with classes inspired by my third day project"
 
-import time
-import random
-
-
-
-
-def Opening_menu():
-    print("\nWelcome! This is the main menu. Choose a menu/option!\n\n  Fight ⚔️\n\n  Change Class 🧙\n\n  Exit ❌\n")
-    menu_input = input("> ").upper()
-    print(menu_input)
-
-    if menu_input in ("F", "FI", "FIG", "FIGH", "FIGHT", "⚔️"):
-        print("proof of concept1")
-
-    elif menu_input in ("C", "CH", "CHA", "CHAN", "CHANG", "CHANGE", "CHANGE C", "CHANGE ", "CHANGE CL", "CHANGE CLA", "CHANGE CLAS", "CHANGE CLASS", "C", "CH", "CHA", "CHAN", "CHANG", 'CHANGE', '🧙'):
-        print("proof of concept2")
-
-    elif menu_input in ("E", "EX", "EXI", "EXIT", "❌", 'BLEH'):
-        print("Proof of concept3")
-    
-        
-
-
-
-
-Opening_menu()
 
 

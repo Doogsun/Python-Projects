@@ -6,6 +6,9 @@ import random
 
 from Classes import Warrior, Wizard, Rogue
 from Enemies import Goblin, Golem, RAH
+from Goblin_art import goblin_art1, goblin_art2
+from Golem_art import golem_art1
+from RAH_art import Rah_art1
 
 
 #1 = Fight, 2 = class change, 3 = exit
