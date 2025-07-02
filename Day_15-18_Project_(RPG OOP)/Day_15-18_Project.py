@@ -264,7 +264,7 @@ def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) o
 def fighting(fightdata): #0-enemystat1, 1-enemystat, 2-enemybeingfought
     if fightdata[2] == "GOB":
         goblin1 = Goblin(fightdata[0], fightdata[1])
-        print(goblin1.level, goblin1.hpstat)
+        
 
 
 
