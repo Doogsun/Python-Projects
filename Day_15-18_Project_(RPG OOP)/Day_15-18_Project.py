@@ -56,8 +56,8 @@ def ChangeClass_Menu():
             set_class = "WAR"
             stattype_war = input("\n\nStat Menu --> Standard or Custom?\n\n> ").upper()
             if stattype_war in ("S", 'ST', 'STA', 'STAN', 'STAND', 'STANDA' 'STANDAR', 'STANDARD'):
-                warstat1 = ...
-                warstat2 = ...
+                warstat1 = 10
+                warstat2 = 20
                 return (warstat1, warstat2, set_class)
                 
 
@@ -81,8 +81,8 @@ def ChangeClass_Menu():
             set_class = "WIZ"
             stattype_wiz = input("\n\nStat Menu --> Standard or Custom?\n\n> ").upper()
             if stattype_wiz in ("S", 'ST', 'STA', 'STAN', 'STAND', 'STANDA' 'STANDAR', 'STANDARD'):
-                wizstat1 = ...
-                wizstat2 = ...
+                wizstat1 = 10
+                wizstat2 = 20
                 return (wizstat1, wizstat2, set_class)
                 
 
@@ -105,8 +105,8 @@ def ChangeClass_Menu():
             set_class = "ROG"
             stattype_rog = input("\n\nStat Menu --> Standard or Custom?\n\n> ").upper()
             if stattype_rog in ("S", 'ST', 'STA', 'STAN', 'STAND', 'STANDA' 'STANDAR', 'STANDARD'):
-                rogstat1 = ...
-                rogstat2 = ...
+                rogstat1 = 10
+                rogstat2 = 20
                 return (rogstat1, rogstat2, set_class)
                 
 
@@ -264,9 +264,53 @@ def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) o
 
 
 
-def fighting(fightdata): #0-enemystat1, 1-enemystat, 2-enemybeingfought
+def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'enemyfought':GOB,STONE,RAH)
     if fightdata[2] == "GOB":
-        goblin1 = Goblin(fightdata[0], fightdata[1])
+        goblin1 = Goblin(fightdata[0], fightdata[1])  
+
+        gob_cutscene()                  #changeoutput ---> (10, 20, 'CLASS':WAR,ROG,WIZ)
+
+        print('\n"A GOBLIN!!"\n')
+
+        time.sleep(2)
+
+        while True:
+            if flee == True:
+                break
+
+        
+
+            turncount = 0
+            print(goblin_art1)
+            turncount += 1
+
+            print("\n  Moves\n\n    Flee")
+            turninput = input("> ").upper()
+
+            if turninput in ('M', 'MO', 'MOV', 'MOVE'):
+                ...
+
+            if fleelocked == False:
+                if turninput in ('F', 'FL', 'FLE', 'FLEE'):
+                    fleeattempt = random.randint(1,5)
+                    if fleeattempt == random.randint(1,5):
+                        flee = True
+                    else:
+                        print("Flee Attempt Failed!")
+                        fleelocked = True
+            else:
+                if fleelocked == True:
+                    print("You cannot attempt to flee again")
+
+                else:
+                    print("Please enter a proper input")
+
+            
+                
+
+
+
+
         
 
 
@@ -305,6 +349,43 @@ def fighting(fightdata): #0-enemystat1, 1-enemystat, 2-enemybeingfought
 
 
 
+
+
+def gob_cutscene():
+
+    time.sleep(0.6)
+    print()
+    time.sleep(0.6)
+    print()
+    time.sleep(0.6)                 
+    print()
+    time.sleep(0.6)
+    print()
+    time.sleep(0.6)
+
+    print("-------------------------------------------------------------------------------------------------------------------------------------")
+    time.sleep(0.75)
+
+    print("\nThere is an unease in the air.")
+
+    for i in range(3):
+        time.sleep(1)
+        print('...')
+        time.sleep(1)
+
+    print("\nA cool breeze chills your spine.")
+
+    for i in range(3):
+        time.sleep(1)
+        print("...")
+        time.sleep(1)
+
+    time.sleep(1)
+
+
+
+
+
 def main():
     
     runamount = 1 #checks to display the welcome message
@@ -316,7 +397,7 @@ def main():
                 try:
                     runamount += 2
                     fightdata = fight_menu(changeoutput)
-                    fighting(fightdata)
+                    fighting(fightdata, changeoutput)
 
                 except ...:
                     print("\n\nPlease select a class first. (Change class)")
@@ -324,13 +405,14 @@ def main():
 
             elif currentmenu == 2:
                 changeoutput = ChangeClass_Menu()
+                print(changeoutput)
                 runamount += 1
                
             elif currentmenu == 3:
                 break
             
-        
-        
+
+   
 
 if __name__ == "__main__":
     main()

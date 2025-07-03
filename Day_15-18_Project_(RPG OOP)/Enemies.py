@@ -7,6 +7,9 @@ class Goblin:
         if hpstat > 0:
             self.isalive = True
 
+        #just fightcode the evolution and call the evolve method and set hp of player to zero. Could add own evolved goblin enemy that 
+        #replaces regular goblin enemy but too much work
+
 
     def punch(self):
         print("A lowly growl crawls out of the green baby... a wild haymaker gets thrown thrown at you.")
@@ -25,7 +28,7 @@ class Goblin:
 
     def evolve(self):
         print("GRAVITY HAS BROUGHT ME HERE FOR A REASON... THE STARS HAVE ALIGNED!!! THE TIME OF EVOLUTION IS NOW!!!")
-        #become made in heaven and kill everyone
+        #become cmoon and kill everyone
 
 
 
@@ -112,5 +115,3 @@ class RAH:
 
 
 
-goblin1 = Goblin(5, 10)
-print(goblin1.level, goblin1.hpstat)

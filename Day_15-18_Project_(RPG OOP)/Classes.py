@@ -2,8 +2,8 @@ class Warrior:
 
     def __init__(self, strstat, hpstat):
 
-        self.strstat = 1 + strstat
-        self.hpstat = 1 + hpstat
+        self.strstat = strstat
+        self.hpstat = hpstat
         if hpstat > 0:
             self.isalive = True
         
@@ -23,8 +23,8 @@ class Wizard:
 
     def __init__(self, arcstat, hpstat):
         
-        self.arcstat = 1 + arcstat
-        self.hpstat = 1 + hpstat
+        self.arcstat = arcstat
+        self.hpstat = hpstat
         if hpstat > 0:
             self.isalive = True
 
@@ -43,8 +43,8 @@ class Rogue:
 
     def __init__(self, dexstat, hpstat):
 
-        self.dexstat = 1 + dexstat
-        self.hpstat = 1 + hpstat
+        self.dexstat = dexstat
+        self.hpstat = hpstat
         if hpstat > 0:
             self.isalive = True
 
