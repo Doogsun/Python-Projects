@@ -45,6 +45,7 @@ def Opening_menu(runamount):
             None
 
 
+
 def ChangeClass_Menu():
 
     print("\n\n Charcter Selection --> Select a class")
@@ -122,6 +123,7 @@ def ChangeClass_Menu():
                         
                     except ValueError:
                         print("\nInvalid! Enter an integer")
+
 
 
 def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) of enemy or make it random, have it return stat data for enemies/ selected enemy
@@ -264,47 +266,81 @@ def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) o
 
 
 
+
+
 def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'enemyfought':GOB,STONE,RAH)
+
     if fightdata[2] == "GOB":
         goblin1 = Goblin(fightdata[0], fightdata[1])  
 
-        gob_cutscene()                  #changeoutput ---> (10, 20, 'CLASS':WAR,ROG,WIZ)
+        #gob_cutscene()                  #changeoutput ---> (10, 20, 'CLASS':WAR,ROG,WIZ)
 
         print('\n"A GOBLIN!!"\n')
 
         time.sleep(2)
 
-        while True:
-            if flee == True:
-                break
+        dead = False #If player or enemy dies, then dead is turned to true
+        flee = False #if player sucessfully flees then flee is turned to true
+        fleelocked = False #check to see aleady fleed for a turn
 
         
+        while dead or flee == False:
 
             turncount = 0
             print(goblin_art1)
-            turncount += 1
 
-            print("\n  Moves\n\n    Flee")
+            print("\n  Move\n\n  Flee\n")
             turninput = input("> ").upper()
 
             if turninput in ('M', 'MO', 'MOV', 'MOVE'):
-                ...
 
-            if fleelocked == False:
-                if turninput in ('F', 'FL', 'FLE', 'FLEE'):
-                    fleeattempt = random.randint(1,5)
-                    if fleeattempt == random.randint(1,5):
-                        flee = True
-                    else:
-                        print("Flee Attempt Failed!")
-                        fleelocked = True
-            else:
+                
+                turncount += 1
+
+
+
+
+
+
+
+
+
+            if turninput in ('F', 'FL', 'FLE', 'FLEE'):
+
+
                 if fleelocked == True:
-                    print("You cannot attempt to flee again")
+                    print("\nYou cannot attempt to flee this turn")
+                    time.sleep(2)
+                    
+                    
+                    
+                if fleelocked == False:
+                    fleeattempt = 1 #placeholder for random.ranint
+                    checkattempt = 1 #always suceeds escape
 
-                else:
-                    print("Please enter a proper input")
+                    print("\nAttempting to flee...")
+                    time.sleep(2)
 
+                    if fleeattempt == checkattempt:
+
+                        print("You suceeded! :3 ")
+                        time.sleep(2)
+                        flee = True
+                        
+                    
+                    if fleeattempt != checkattempt :
+
+                        print("You Failed! :(")
+                        time.sleep(2)
+                        flee = False
+                        fleelocked = True
+
+            else:
+                print('\nPlease enter a valid input')
+                time.sleep(2)
+
+        
+            
             
                 
 
@@ -345,6 +381,7 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
 
     if fightdata[2] == "RAH":
         rah1 = RAH(fightdata[0], fightdata[1])
+
 
 
 
@@ -394,13 +431,13 @@ def main():
         currentmenu = Opening_menu(runamount)
         if currentmenu in menu_index:
             if currentmenu == 1:
-                try:
+                #try:
                     runamount += 2
                     fightdata = fight_menu(changeoutput)
                     fighting(fightdata, changeoutput)
 
-                except ...:
-                    print("\n\nPlease select a class first. (Change class)")
+                #except 
+                    #print("\n\nPlease select a class first. (Change class)")
 
 
             elif currentmenu == 2:
