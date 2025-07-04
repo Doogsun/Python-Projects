@@ -285,12 +285,10 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
     if fightdata[2] == "GOB":
         goblin1 = Goblin(fightdata[0], fightdata[1])
         
-        
 
         #gob_cutscene()       #temp takewawy for QOL         #changeoutput ---> (10, 20, 'CLASS':WAR,ROG,WIZ)
-
         
-
+        
         print('\n"A GOBLIN!!"\n')
 
         time.sleep(2)
@@ -310,14 +308,15 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
 
             if turninput in ('M', 'MO', 'MOV', 'MOVE'):
                 
-                gobplayer_move(goblin1, player1, changeoutput)
-
-
-
-
-
-
                 turncount += 1
+                gobplayer_move(goblin1, player1, changeoutput, turncount)
+
+
+        
+
+
+
+                
 
 
 
@@ -362,20 +361,6 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
                 time.sleep(2)
 
         
-            
-            
-                
-
-
-
-
-        
-
-
-
-
-
-
 
 
     if fightdata[2] == "STONE":
@@ -393,29 +378,72 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
 
 
 
-def gobplayer_move(goblin1, player1, changeoutput):
+def gobplayer_move(goblin1, player1, changeoutput, turncount):
 
     player_class = changeoutput[2]
-    if player_class == "WAR":
-        move1 = "Basic Atk"
-        move2 = "Serrate"
-        move3 = "Pommel Strike"
-        move4 = "Whirlwind Spin"
     
+
+    if player_class == "WAR":
+        coollist = {"Basic Atk":1, "Serrate":2, "Pommel Strike":3, "Whirlwind Spin":4 }
+        ablelist = ["Basic Atk", "Serrate", "Pommel Strike", "Whirlwind Strike"]
+
+        funclist = {1:player1.basic_atk,
+                    2:player1.warriors_serrate,
+                    3:player1.pommel_strike,
+                    4:player1.whirlwind_spin
+                         
+                         }
+
     if player_class == "WIZ":
-        move1 = "Basic Atk"
-        move2 = "Magic Rain"
-        move3 = "Magic Crackers"
-        move4 = "Arcanus Pinnus"
+        coollist = {"Basic Atk":1, "Magic Rain":2, "Magic Crackers":3, "Arcanus Pinnus":4}
+        ablelist= {"Basic Atk", "Magic Rain", "Magic Crackers", "Arcanus Pinnus"}
+
+        funclist = {1:player1.basic_atk,
+                    2:player1.magic_rain,
+                    3:player1.magic_crackers,
+                    4:player1.arcanus_pinnus
+
+                        }
     
     if player_class == "ROG":
-        move1 = "Basic Atk"
-        move2 = "Ankle Cutter"
-        move3 = "Dropkick Slash"
-        move4 = '"Thousand" Flashstep'
+        coollist = {"Basic Atk":1, "Ankle Cutter":2, "Dropkick Slash":3, '"Thousand" Flashstep':4}
+        ablelist = ["Basic ATK", "Ankle Cutter", "Dropkick Slash", '"Thousand" Flashstep']
 
-    print(f"\n  {move1}\n\n  {move2}\n\n    {move3}\n\n    {move4}\n")
 
+        funclist = {1:player1.basic_atk,
+                    2:player1.ankle_cutter,
+                    3:player1.dropkick_slash,
+                    4:player1.thousand_flashstep
+
+                        }
+
+    
+    if turncount == 1:
+        print(f"\n    {ablelist[0]} - 1\n\n    {ablelist[1]} - 2\n\n    {ablelist[2]} - 3\n\n    {ablelist[3]} - 4\n")
+        moveinput = int(input("> "))
+
+            
+        if moveinput == 1:
+            funclist[1]()
+            time.sleep(5)
+
+        if moveinput == 2:
+            funclist[2]()
+            time.sleep(5)
+
+        if moveinput == 3:
+            funclist[3]()
+            time.sleep(5)
+
+        if moveinput == 4:
+            funclist[4]()
+            time.sleep(5)
+                
+
+    if turncount > 1:
+
+   
+        
 
 
 

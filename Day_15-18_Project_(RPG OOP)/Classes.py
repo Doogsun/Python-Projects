@@ -77,5 +77,5 @@ class Rogue:
         print('A phaseflicker shrouds your movement.. You appear above your oppoenent, meteoring down and slasshing them.')
 
 
-    def thounsand_flashstep(self):
+    def thousand_flashstep(self):
         print("A flashstep slices through the air.. A flashtunnel of slashes sprials past your flashstep.")
