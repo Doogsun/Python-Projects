@@ -270,10 +270,26 @@ def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) o
 
 def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'enemyfought':GOB,STONE,RAH)
 
-    if fightdata[2] == "GOB":
-        goblin1 = Goblin(fightdata[0], fightdata[1])  
+    player_class = changeoutput[2]
+    if player_class == "WAR":
+        player1 = Warrior(changeoutput[0], changeoutput[1])
 
-        #gob_cutscene()                  #changeoutput ---> (10, 20, 'CLASS':WAR,ROG,WIZ)
+    elif player_class == "WIZ":
+        player1 = Wizard(changeoutput[0], changeoutput[1])
+
+    elif player_class == "ROG":
+        player1 = Rogue(changeoutput[0], changeoutput[1])
+
+
+
+    if fightdata[2] == "GOB":
+        goblin1 = Goblin(fightdata[0], fightdata[1])
+        
+        
+
+        #gob_cutscene()       #temp takewawy for QOL         #changeoutput ---> (10, 20, 'CLASS':WAR,ROG,WIZ)
+
+        
 
         print('\n"A GOBLIN!!"\n')
 
@@ -293,8 +309,14 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
             turninput = input("> ").upper()
 
             if turninput in ('M', 'MO', 'MOV', 'MOVE'):
-
                 
+                gobplayer_move(goblin1, player1, changeoutput)
+
+
+
+
+
+
                 turncount += 1
 
 
@@ -305,7 +327,7 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
 
 
 
-            if turninput in ('F', 'FL', 'FLE', 'FLEE'):
+            elif turninput in ('F', 'FL', 'FLE', 'FLEE'):
 
 
                 if fleelocked == True:
@@ -356,25 +378,6 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     if fightdata[2] == "STONE":
         stone1 = Golem(fightdata[0], fightdata[1])
 
@@ -386,6 +389,49 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
 
 
 
+
+
+
+
+def gobplayer_move(goblin1, player1, changeoutput):
+
+    player_class = changeoutput[2]
+    if player_class == "WAR":
+        move1 = "Basic Atk"
+        move2 = "Serrate"
+        move3 = "Pommel Strike"
+        move4 = "Whirlwind Spin"
+    
+    if player_class == "WIZ":
+        move1 = "Basic Atk"
+        move2 = "Magic Rain"
+        move3 = "Magic Crackers"
+        move4 = "Arcanus Pinnus"
+    
+    if player_class == "ROG":
+        move1 = "Basic Atk"
+        move2 = "Ankle Cutter"
+        move3 = "Dropkick Slash"
+        move4 = '"Thousand" Flashstep'
+
+    print(f"\n  {move1}\n\n  {move2}\n\n    {move3}\n\n    {move4}\n")
+
+
+
+
+
+
+
+
+
+
+
+
+def stoneplayer_move(stone1, player1):
+    ...
+
+def rahplayer_move(stone1, player1):
+    ...
 
 
 def gob_cutscene():
@@ -421,6 +467,11 @@ def gob_cutscene():
 
 
 
+def stone_cutscene():
+    pass
+
+def rah_cutscene():
+    pass
 
 
 def main():
@@ -439,10 +490,10 @@ def main():
                 #except 
                     #print("\n\nPlease select a class first. (Change class)")
 
+#checks for to see if class is seleceted or not, temp takeway for debugging
 
             elif currentmenu == 2:
                 changeoutput = ChangeClass_Menu()
-                print(changeoutput)
                 runamount += 1
                
             elif currentmenu == 3:
