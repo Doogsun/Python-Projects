@@ -267,7 +267,6 @@ def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) o
 
 
 
-
 def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'enemyfought':GOB,STONE,RAH)
 
     player_class = changeoutput[2]
@@ -286,7 +285,7 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
         goblin1 = Goblin(fightdata[0], fightdata[1])
         
 
-        gob_cutscene()       #temp takewawy for QOL         #changeoutput ---> (10, 20, 'CLASS':WAR,ROG,WIZ)
+        #gob_cutscene()       #temp takewawy for QOL         #changeoutput ---> (10, 20, 'CLASS':WAR,ROG,WIZ)
         
         
         print('\n"A GOBLIN!!"\n')
@@ -296,11 +295,11 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
         dead = False #If player or enemy dies, then dead is turned to true
         flee = False #if player sucessfully flees then flee is turned to true
         fleelocked = False #check to see aleady fleed for a turn
-
+        turncount = [1] #decided to index the list length intead of the bs tracking variables
         
         while dead or flee == False:
 
-            turncount = 0
+            
             print(goblin_art1)
 
             print("\n  Move\n\n  Flee\n")
@@ -308,9 +307,9 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
 
             if turninput in ('M', 'MO', 'MOV', 'MOVE'):
                 
-                turncount += 1
+                
                 gobplayer_move(goblin1, player1, changeoutput, turncount)
-
+                
 
         
 
@@ -381,11 +380,10 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
 def gobplayer_move(goblin1, player1, changeoutput, turncount):
 
     player_class = changeoutput[2]
-    
 
     if player_class == "WAR":
         coollist = {"Basic Atk":1, "Serrate":2, "Pommel Strike":3, "Whirlwind Spin":4 }
-        ablelist = ["Basic Atk", "Serrate", "Pommel Strike", "Whirlwind Strike"]
+        ablelist = ["Basic Atk", "Serrate", "Pommel Strike", "Whirlwind Spin"]
 
         funclist = {1:player1.basic_atk,
                     2:player1.warriors_serrate,
@@ -396,7 +394,7 @@ def gobplayer_move(goblin1, player1, changeoutput, turncount):
 
     if player_class == "WIZ":
         coollist = {"Basic Atk":1, "Magic Rain":2, "Magic Crackers":3, "Arcanus Pinnus":4}
-        ablelist= {"Basic Atk", "Magic Rain", "Magic Crackers", "Arcanus Pinnus"}
+        ablelist = ["Basic Atk", "Magic Rain", "Magic Crackers", "Arcanus Pinnus"]
 
         funclist = {1:player1.basic_atk,
                     2:player1.magic_rain,
@@ -407,7 +405,7 @@ def gobplayer_move(goblin1, player1, changeoutput, turncount):
     
     if player_class == "ROG":
         coollist = {"Basic Atk":1, "Ankle Cutter":2, "Dropkick Slash":3, '"Thousand" Flashstep':4}
-        ablelist = ["Basic ATK", "Ankle Cutter", "Dropkick Slash", '"Thousand" Flashstep']
+        ablelist = ["Basic Atk", "Ankle Cutter", "Dropkick Slash", '"Thousand" Flashstep']
 
 
         funclist = {1:player1.basic_atk,
@@ -418,30 +416,52 @@ def gobplayer_move(goblin1, player1, changeoutput, turncount):
                         }
 
     
-    if turncount == 1:
+    if len(turncount) == 1: #first turn will always have all the moves available
         print(f"\n    {ablelist[0]} - 1\n\n    {ablelist[1]} - 2\n\n    {ablelist[2]} - 3\n\n    {ablelist[3]} - 4\n")
         moveinput = int(input("> "))
 
-            
+
         if moveinput == 1:
             funclist[1]()
+            ablelist.pop(0)
+            turncount.append(1)
             time.sleep(5)
 
         if moveinput == 2:
             funclist[2]()
-            time.sleep(5)
-
+            
+            ablelist.pop(1)
+            turncount.append(1)
+            time.sleep(5)                       #removedmove = ablelist[moveinput - 1]
+            
         if moveinput == 3:
             funclist[3]()
+            
+            ablelist.pop(2)
+            turncount.append(1)
             time.sleep(5)
-
+               
         if moveinput == 4:
             funclist[4]()
+            
+            ablelist.pop(3)
+            turncount.append(1)
             time.sleep(5)
-                
+            
 
-    if turncount > 1:
-        ...
+
+    elif len(turncount) >= 1: #for second turn onwards, must calc cooldowns
+        print(ablelist)
+       # if len(ablelist) <= 3:
+         #   movecooldown = coollist[f"{removed}"]
+        
+        #print(movecooldown)
+                   
+
+
+                
+            
+            
    
         
 
