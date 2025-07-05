@@ -1,9 +1,10 @@
-"""Create a mental math trainer for double digit multiplication (XX * XX). Make modular to add more operations i nthe future"""
+#A mental math trainer
+#has addition, multiplcation, and subtraction
+#only upto 2 digits per
 
 
 import random
 import time
-import cowsay
 
 
 def play_prompt():

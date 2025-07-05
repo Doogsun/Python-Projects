@@ -1,4 +1,4 @@
-"""Password Generator: Generates a random password of given length."""
+#Password Generator: Generates a random password of given length. Simple logic (just a random letter generator, not really a password), might recode
 
 import random
 password_bank = ["a", "b", "c", "d", "e", "f", "g", "h", "i",

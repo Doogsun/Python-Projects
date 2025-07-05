@@ -1,21 +1,21 @@
-#Project that porvides feedback on your dick measurements lol :3
+#First ever python project! A simple prompt to learn conditionals
 
 play = True
 while play:
-    dihlength, dihgirth = float(input("How long is your dih nga: ")), float(input("How girthy is your dih nga: "))
-    if dihlength > 6:
-        print("your shit kinda big bro")
-    elif 4 < dihlength < 6:
-        print("Your shit medium cuh")
-    elif dihlength < 4:
-        print("Your shit kinda small crodie")
+    length, width = float(input("What is the length?: ")), float(input("What is the girth?: "))
+    if length > 6:
+        print("Wow! Long!")
+    elif 4 < length < 6:
+        print("Cool medium")
+    elif length < 4:
+        print("A lil bit small")
 
-    if dihgirth > 5:
-        print("Your shit kinda thick")
-    elif 3 < dihgirth < 5:
-        print("Your shit girthy enough crodie")
-    elif dihgirth < 3:
-        print("Your shit skinny asf on foenem")
+    if width > 5:
+        print("Wide moment")
+    elif 3 < width < 5:
+        print("Good medium!")
+    elif width < 3:
+        print("Bulk time!")
 
     noplay = input("Do you want keep playing, 'Y' or 'N': ")
     if noplay == "Y":
@@ -24,7 +24,7 @@ while play:
         play = False
 
     else: 
-        print("Thats not 'Y' or 'N' cuh ")
+        print("Thats not 'Y' or 'N' :( ")
         play = False
 
 

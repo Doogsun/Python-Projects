@@ -1,4 +1,4 @@
-#A short "choose" your own adventure game that uses input and dialogie, that hides a secret passage on the pyramid of RAH
+#A short "choose" your own adventure game. My first multi day project!
 
 
 

@@ -1,4 +1,4 @@
-"""Unit Converter: Converts miles to kilometers (or other units). Use a def function"""
+#A converter for kms to miles and vice versa. First time def functions!
 
 
 

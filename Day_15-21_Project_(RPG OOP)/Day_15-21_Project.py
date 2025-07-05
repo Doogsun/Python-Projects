@@ -286,7 +286,7 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
         goblin1 = Goblin(fightdata[0], fightdata[1])
         
 
-        #gob_cutscene()       #temp takewawy for QOL         #changeoutput ---> (10, 20, 'CLASS':WAR,ROG,WIZ)
+        gob_cutscene()       #temp takewawy for QOL         #changeoutput ---> (10, 20, 'CLASS':WAR,ROG,WIZ)
         
         
         print('\n"A GOBLIN!!"\n')
@@ -441,7 +441,7 @@ def gobplayer_move(goblin1, player1, changeoutput, turncount):
                 
 
     if turncount > 1:
-
+        ...
    
         
 

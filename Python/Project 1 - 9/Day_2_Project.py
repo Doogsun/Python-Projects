@@ -1,4 +1,4 @@
-#A converter for bodyweight
+#A converter for lbs & kgs
 
 play = True
 while play == True:

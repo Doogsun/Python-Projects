@@ -1,5 +1,6 @@
-#write a program that converts untis of gas pressure to other units of gas pressure
+#a program that converts untis of gas pressure to other units of gas pressure
 #Units: Pa (pascal), Bar (bar), psi (pounds per square inch), Torr (mmHg), atm (atmosphere of earth)
+
 
 import time
 

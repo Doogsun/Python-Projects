@@ -1,4 +1,5 @@
-"""Prime Checker: Returns True if a number is prime. Recoded """
+#A program that checks if a number is prime or not. This was orginally coded, and didn't work, and I tried recoding it around project 12,
+#but i lowkey forgot about it. Might finsh after project 15-21
 
 import sys
 

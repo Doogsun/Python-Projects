@@ -1,12 +1,12 @@
-"""Added a search function for the artists name instead of hard coding it.
- Next figure out a way to display muultiple statistics for songs
+#First time using an api! 
+#imma recode this after 15-21
 
-https://itunes.apple.com/search
-https://publicapis.io/i-tunes-search-api
-https://music.apple.com/
+#https://itunes.apple.com/search
+#https://publicapis.io/i-tunes-search-api
+#https://music.apple.com/
 
-'Day_10_+_Project.py'
-"""
+#'Day_10_+_Project.py'
+
 
 
 
@@ -41,7 +41,7 @@ def line_prompting():
 def itunes_search(lines, artist):
 
     output_data = requests.get(f"https://itunes.apple.com/search?entity=song&limit={lines}&term=" + f"{artist}")
-    names_list = output_data.json()
+    names_list = output_data.json()                 #enter artist name after = sign, but imma recode this
     for name in names_list["results"]:
         print(name["trackName"])
 
