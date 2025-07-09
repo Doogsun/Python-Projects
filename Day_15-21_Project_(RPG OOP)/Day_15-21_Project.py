@@ -280,7 +280,7 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
         goblin1 = Goblin(fightdata[0], fightdata[1])
         
 
-        #gob_cutscene()       #temp takewawy for QOL         #changeoutput ---> (10, 20, 'CLASS':WAR,ROG,WIZ)
+        #gob_cutscene1()       #temp takewawy for QOL         #changeoutput ---> (10, 20, 'CLASS':WAR,ROG,WIZ)
         
         
         print('\n"A GOBLIN!!"\n')
@@ -341,7 +341,7 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
             if turninput in ('M', 'MO', 'MOV', 'MOVE'):
 
                 loop = True
-                while loop ==  True:
+                while loop == True:
 
                     if turncount == 1:
                     
@@ -350,32 +350,40 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
 
                         if moveinput == 1:
                             funclist[1]()
+                            cooldown.append(1, coollist[1])
                             turncount += 1
                             break
 
                         if moveinput == 2:
                             funclist[2]()
-                            cooldown.append(coollist[1])
+                            cooldown.append(2, coollist[2])
                             turncount += 1
                             break
                             
                         if moveinput == 3:
                             funclist[3]()
-                            cooldown.append(coollist[2])
+                            cooldown.append(3, coollist[3])
                             turncount += 1
                             break
                             
                         if moveinput == 4:
                             funclist[4]()
-                            cooldown.append(coollist[3])
+                            cooldown.append(4, coollist[4])
                             turncount += 1
                             break
 
                     if turncount > 1:
-                        
-                       if len(cooldown) >= 1:
-                           for move in cooldown:
-                                print(move)
+                                                                   
+                        if len(cooldown) >= 1:
+                            for i in cooldown:
+                                if cooldown[0][0] > 0:
+                                    ...
+                                if cooldown[0][0] == 0:
+                                    cooldown.remove[0]
+
+                                
+
+                            
                                
                        
 
@@ -456,7 +464,7 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
     if fightdata[2] == "STONE":
         stone1 = Golem(fightdata[0], fightdata[1])
 
-        stone_cutscene()       #temp takewawy for QOL         #changeoutput ---> (10, 20, 'CLASS':WAR,ROG,WIZ)
+        stone_cutscene1()       #temp takewawy for QOL         #changeoutput ---> (10, 20, 'CLASS':WAR,ROG,WIZ)
         
         
         print('\nA COLOSSAL golem emerges!\n')
@@ -464,11 +472,18 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
         time.sleep(2)
 
 
-
     if fightdata[2] == "RAH":
         rah1 = RAH(fightdata[0], fightdata[1])
 
-        rah_cutscene()
+        rah_cutscene1()
+
+
+        time.sleep(2)
+        print("")
+
+        print("\nI AM RAH, THE GOD OF THE SUN! FACE MY DIVINE FORM!!")
+
+        time.sleep(2)
 
 
 
@@ -478,8 +493,7 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
 
 
 
-
-def gob_cutscene():
+def gob_cutscene1():
 
     time.sleep(0.6)
     print()
@@ -511,7 +525,7 @@ def gob_cutscene():
     time.sleep(1)
 
 
-def stone_cutscene():
+def stone_cutscene1():
     
     time.sleep(0.6)
     print()
@@ -542,7 +556,7 @@ def stone_cutscene():
     time.sleep(1)
 
 
-def rah_cutscene():
+def rah_cutscene1():
     time.sleep(0.6)
     print()
     time.sleep(0.6)
@@ -556,11 +570,11 @@ def rah_cutscene():
     print("-------------------------------------------------------------------------------------------------------------------------------------")
     time.sleep(2.75)
     
-    print('"A voice "')
-
+    print('\n"A voice radiates from above"')
+    time.sleep(4)
     
     print("\nWhat do we have here?\n")
-    time.sleep(3)
+    time.sleep(4)
     message = "Hmm"
     for i in range(4):
         dots = "." * i 
@@ -572,18 +586,30 @@ def rah_cutscene():
     print("")
     time.sleep(1.5)
         
-    print("\nYou've come to slay me!\n")
+    print("\nI see. You've come to slay me!\n")
     time.sleep(1.5)
+    
 
     message2 = "HA"
-    for i in range(4):
+    for i in range(5):
         laugh = "HA" * i 
         sys.stdout.write(f"\r{message2}{laugh}   ")
+        
+        sys.stdout.flush()
+        time.sleep(0.5)
+
+    time.sleep(1)
+
+    message3 = "Truly Pitiful"
+    for i in range(4):
+        dots2 = "." * i 
+        sys.stdout.write(f"\r{message3}{dots2}   ")
         
         sys.stdout.flush()
         time.sleep(1)
 
     
+
 
 
 def main():
