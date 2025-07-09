@@ -36,7 +36,7 @@ class Golem:
 
     def __init__(self, level, hpstat):
         self.level = level
-        self.hpstat = hpstat (2 * level)
+        self.hpstat = hpstat + (2 * level)
         if hpstat > 0:
             self.isalive = True
 
