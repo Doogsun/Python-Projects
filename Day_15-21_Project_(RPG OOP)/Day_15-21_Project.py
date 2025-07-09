@@ -350,37 +350,34 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
 
                         if moveinput == 1:
                             funclist[1]()
-                            cooldown.append(1, coollist[1])
+                            cooldown.append((1, coollist[1]))
                             turncount += 1
                             break
 
                         if moveinput == 2:
                             funclist[2]()
-                            cooldown.append(2, coollist[2])
+                            cooldown.append((2, coollist[2]))
                             turncount += 1
                             break
                             
                         if moveinput == 3:
                             funclist[3]()
-                            cooldown.append(3, coollist[3])
+                            cooldown.append((3, coollist[3]))
                             turncount += 1
                             break
                             
                         if moveinput == 4:
                             funclist[4]()
-                            cooldown.append(4, coollist[4])
+                            cooldown.append((4, coollist[4]))
                             turncount += 1
                             break
 
                     if turncount > 1:
                                                                    
                         if len(cooldown) >= 1:
-                            for i in cooldown:
-                                if cooldown[0][0] > 0:
-                                    ...
-                                if cooldown[0][0] == 0:
-                                    cooldown.remove[0]
 
+                            
+                                
                                 
 
                             
