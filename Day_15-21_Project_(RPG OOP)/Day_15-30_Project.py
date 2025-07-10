@@ -8,7 +8,7 @@ from Classes import Warrior, Wizard, Rogue
 from Enemies import Goblin, Golem, RAH
 from Goblin_art import goblin_art1, goblin_art2
 from Golem_art import golem_art1
-from RAH_art import Rah_art1
+from RAH_art import Rah_art1, Rah_art2
 
 
 #1 = Fight, 2 = class change, 3 = exit
@@ -276,6 +276,9 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
     elif player_class == "ROG":
         player1 = Rogue(changeoutput[0], changeoutput[1])
 
+
+
+
     if fightdata[2] == "GOB":
         goblin1 = Goblin(fightdata[0], fightdata[1])
         
@@ -290,13 +293,10 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
         dead = False #If player or enemy dies, then dead is turned to true
         flee = False #if player sucessfully flees then flee is turned to true
         fleelocked = False #check to see aleady fleed for a turn
-        turncount = 1 
-        cooldown = []
         
-        while dead or flee == False:
-            
+        
 
-            if player_class == "WAR":
+        if player_class == "WAR":
 
                 coollist = {1:"Basic Atk", 2:"Serrate", 3:"Pommel Strike", 4:"Whirlwind Spin"}
                 ablelist = ["Basic Atk", "Serrate", "Pommel Strike", "Whirlwind Spin"]
@@ -308,7 +308,7 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
                     4: player1.whirlwind_spin
                 }
 
-            if player_class == "WIZ":
+        if player_class == "WIZ":
 
                 coollist = {1:"Basic Atk", 2:"Magic Rain", 3:"Magic Crackers", 4:"Arcanus Pinnus"}
                 ablelist = ["Basic Atk", "Magic Rain", "Magic Crackers", "Arcanus Pinnus"]
@@ -320,64 +320,50 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
                     4: player1.arcanus_pinnus
                 }
 
-            if player_class == "ROG":
-                coollist = {1:"Basic Atk", 2:"Ankle Cutter", 3:"Dropkick Slash", 4:'"Thousand" Flashstep'}
-                ablelist = ["Basic Atk", "Ankle Cutter", "Dropkick Slash", '"Thousand" Flashstep']
+        if player_class == "ROG":
+            coollist = {1:"Basic Atk", 2:"Ankle Cutter", 3:"Dropkick Slash", 4:'"Thousand" Flashstep'}
+            ablelist = ["Basic Atk", "Ankle Cutter", "Dropkick Slash", '"Thousand" Flashstep']
 
-                funclist = {
-                    1: player1.basic_atk,
-                    2: player1.ankle_cutter,
-                    3: player1.dropkick_slash,
-                    4: player1.thousand_flashstep
+            funclist = {
+                1: player1.basic_atk,
+                2: player1.ankle_cutter,
+                3: player1.dropkick_slash,
+                4: player1.thousand_flashstep
                 }
            
+        
+        
+        while dead or flee == False:
 
+            if player1.isalive == False:
+                dead += True
+                break
+
+            if goblin1.isalive == False:
+                dead += True
+                break
+
+            # 1. Loop through the coolist
+            # 2. Subtract 1 from all the cooldown values
+            # 3. If cooldown value of skill is 0 or lower remove skill from cooldown list 
             
+            if goblin1.evovled == False:
+                print(goblin_art1) 
 
-            print(goblin_art1)  
+            if goblin1.evovled == True:
+                print(goblin_art2)
+
             print("\n  Move\n\n  Flee\n")
             turninput = input("> ").upper()
 
             if turninput in ('M', 'MO', 'MOV', 'MOVE'):
+                funclist[1]()
+                goblin1.takedamage(3)
 
-                loop = True
-                while loop == True:
-
-                    if turncount == 1:
-                    
-                        print(f"\n    {ablelist[0]} - 1\n\n    {ablelist[1]} - 2\n\n    {ablelist[2]} - 3\n\n    {ablelist[3]} - 4\n")
-                        moveinput = int(input("> "))
-
-                        if moveinput == 1:
-                            funclist[1]()
-                            cooldown.append((1, coollist[1]))
-                            turncount += 1
-                            break
-
-                        if moveinput == 2:
-                            funclist[2]()
-                            cooldown.append((2, coollist[2]))
-                            turncount += 1
-                            break
-                            
-                        if moveinput == 3:
-                            funclist[3]()
-                            cooldown.append((3, coollist[3]))
-                            turncount += 1
-                            break
-                            
-                        if moveinput == 4:
-                            funclist[4]()
-                            cooldown.append((4, coollist[4]))
-                            turncount += 1
-                            break
-
-                    if turncount > 1:
-                                                                   
-                        if len(cooldown) >= 1:
-
-                            
-                                
+                move = goblin1.choose_move()
+                player1.takedamage(move)
+                fleelocked = False
+        
                                 
 
                             
@@ -428,20 +414,26 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
 
 
                 if fleelocked == True:
-                    print("\nYou cannot attempt to flee this turn")
+                    print("\nYou cannot attempt a to flee again this turn.")
                     time.sleep(2)
                     
                     
                 if fleelocked == False:
-                    fleeattempt = 1 #placeholder for random.ranint
+                    fleeattempt = random.randint(1,3) #placeholder for random.ranint
                     checkattempt = 1 #always suceeds escape
 
-                    print("\nAttempting to flee...")
-                    time.sleep(2)
+                    fleemessage = "Atemptting to flee"
+                    for i in range(4):
+                        dots = "." * i 
+                        sys.stdout.write(f"\r{fleemessage}{dots}  ")
+                    
+                        sys.stdout.flush()
+                        time.sleep(1.5)
+
 
                     if fleeattempt == checkattempt:
 
-                        print("You suceeded! :3 ")
+                        print("You suceeded! :3")
                         time.sleep(2)
                         flee = True
                         
@@ -461,6 +453,8 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
     if fightdata[2] == "STONE":
         stone1 = Golem(fightdata[0], fightdata[1])
 
+
+
         stone_cutscene1()       #temp takewawy for QOL         #changeoutput ---> (10, 20, 'CLASS':WAR,ROG,WIZ)
         
         
@@ -468,12 +462,162 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
 
         time.sleep(2)
 
+        dead = False #If player or enemy dies, then dead is turned to true
+        flee = False #if player sucessfully flees then flee is turned to true
+        fleelocked = False #check to see aleady fleed for a turn
+        
+        
+
+        if player_class == "WAR":
+
+                coollist = {1:"Basic Atk", 2:"Serrate", 3:"Pommel Strike", 4:"Whirlwind Spin"}
+                ablelist = ["Basic Atk", "Serrate", "Pommel Strike", "Whirlwind Spin"]
+
+                funclist = {
+                    1: player1.basic_atk,
+                    2: player1.warriors_serrate,
+                    3: player1.pommel_strike,
+                    4: player1.whirlwind_spin
+                }
+
+        if player_class == "WIZ":
+
+                coollist = {1:"Basic Atk", 2:"Magic Rain", 3:"Magic Crackers", 4:"Arcanus Pinnus"}
+                ablelist = ["Basic Atk", "Magic Rain", "Magic Crackers", "Arcanus Pinnus"]
+
+                funclist = {
+                    1: player1.basic_atk,
+                    2: player1.magic_rain,
+                    3: player1.magic_crackers,
+                    4: player1.arcanus_pinnus
+                }
+
+        if player_class == "ROG":
+            coollist = {1:"Basic Atk", 2:"Ankle Cutter", 3:"Dropkick Slash", 4:'"Thousand" Flashstep'}
+            ablelist = ["Basic Atk", "Ankle Cutter", "Dropkick Slash", '"Thousand" Flashstep']
+
+            funclist = {
+                1: player1.basic_atk,
+                2: player1.ankle_cutter,
+                3: player1.dropkick_slash,
+                4: player1.thousand_flashstep
+                }
+           
+
+        
+        
+        while dead or flee == False:
+
+            if player1.isalive == False:
+                dead += True
+                break
+
+            if stone1.isalive == False:
+                dead += True
+                break
+
+            # 1. Loop through the coolist
+            # 2. Subtract 1 from all the cooldown values
+            # 3. If cooldown value of skill is 0 or lower remove skill from cooldown list 
+            
+            print(golem_art1)
+
+            print("\n  Move\n\n  Flee\n")
+            turninput = input("> ").upper()
+
+            if turninput in ('M', 'MO', 'MOV', 'MOVE'):
+                fleelocked = False
+        
+                                
+
+                            
+                               
+                       
+
+
+
+
+
+
+
+
+    
+                       
+
+                        
+                       
+                        
+                            
+
+                        
+
+
+
+
+
+                    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            elif turninput in ('F', 'FL', 'FLE', 'FLEE'):
+
+
+                if fleelocked == True:
+                    print("\nYou cannot attempt a to flee again this turn.")
+                    time.sleep(2)
+                    
+                    
+                if fleelocked == False:
+                    fleeattempt = random.randint(1,3) #placeholder for random.ranint
+                    checkattempt = 1 #always suceeds escape
+
+                    fleemessage = "Atemptting to flee"
+                    for i in range(4):
+                        dots = "." * i 
+                        sys.stdout.write(f"\r{fleemessage}{dots}  ")
+                    
+                        sys.stdout.flush()
+                        time.sleep(1.5)
+
+
+                    if fleeattempt == checkattempt:
+
+                        print("You suceeded! :3")
+                        time.sleep(2)
+                        flee = True
+                        
+                    
+                    if fleeattempt != checkattempt :
+
+                        print("You Failed! :(")
+                        time.sleep(2)
+                        flee = False
+                        fleelocked = True
+
+            else:
+                print('\nPlease enter a valid input')
+                time.sleep(2)
+
 
     if fightdata[2] == "RAH":
         rah1 = RAH(fightdata[0], fightdata[1])
 
         rah_cutscene1()
-
 
         time.sleep(2)
         print("")
@@ -481,6 +625,167 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
         print("\nI AM RAH, THE GOD OF THE SUN! FACE MY DIVINE FORM!!")
 
         time.sleep(2)
+
+        dead = False #If player or enemy dies, then dead is turned to true
+        flee = False #if player sucessfully flees then flee is turned to true
+        fleelocked = False #check to see aleady fleed for a turn
+        
+        
+
+        if player_class == "WAR":
+
+                coollist = {1:"Basic Atk", 2:"Serrate", 3:"Pommel Strike", 4:"Whirlwind Spin"}
+                ablelist = ["Basic Atk", "Serrate", "Pommel Strike", "Whirlwind Spin"]
+
+                funclist = {
+                    1: player1.basic_atk,
+                    2: player1.warriors_serrate,
+                    3: player1.pommel_strike,
+                    4: player1.whirlwind_spin
+                }
+
+        if player_class == "WIZ":
+
+                coollist = {1:"Basic Atk", 2:"Magic Rain", 3:"Magic Crackers", 4:"Arcanus Pinnus"}
+                ablelist = ["Basic Atk", "Magic Rain", "Magic Crackers", "Arcanus Pinnus"]
+
+                funclist = {
+                    1: player1.basic_atk,
+                    2: player1.magic_rain,
+                    3: player1.magic_crackers,
+                    4: player1.arcanus_pinnus
+                }
+
+        if player_class == "ROG":
+            coollist = {1:"Basic Atk", 2:"Ankle Cutter", 3:"Dropkick Slash", 4:'"Thousand" Flashstep'}
+            ablelist = ["Basic Atk", "Ankle Cutter", "Dropkick Slash", '"Thousand" Flashstep']
+
+            funclist = {
+                1: player1.basic_atk,
+                2: player1.ankle_cutter,
+                3: player1.dropkick_slash,
+                4: player1.thousand_flashstep
+                }
+        
+        
+
+        while dead or flee == False:
+
+
+            # 1. Loop through the coolist
+            # 2. Subtract 1 from all the cooldown values
+            # 3. If cooldown value of skill is 0 or lower remove skill from cooldown list 
+            
+            if rah1.trueform == True:
+                print(Rah_art2)
+
+            if rah1.trueform == False:
+                print(Rah_art1)
+
+
+            print("\n  Move\n\n  Flee\n")
+            turninput = input("> ").upper()
+
+            if turninput in ('M', 'MO', 'MOV', 'MOVE'):
+                
+                funclist[3]()
+                rah1.takedamage(10)
+                if rah1.isalive == False:
+                    dead += True
+                    break
+
+                damage = rah1.choose_move()
+                player1.takedamage(damage)
+                if player1.isalive == False:
+                    dead += True
+                    break
+
+                fleelocked = False
+        
+                                
+
+                            
+                               
+                       
+
+
+
+
+
+
+
+
+    
+                       
+
+                        
+                       
+                        
+                            
+
+                        
+
+
+
+
+
+                    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            elif turninput in ('F', 'FL', 'FLE', 'FLEE'):
+
+
+                if fleelocked == True:
+                    print("\nYou cannot attempt a to flee again this turn.")
+                    time.sleep(2)
+                    
+                    
+                if fleelocked == False:
+                    fleeattempt = random.randint(1,3) #placeholder for random.ranint
+                    checkattempt = 1 #always suceeds escape
+
+                    fleemessage = "Atemptting to flee"
+                    for i in range(4):
+                        dots = "." * i 
+                        sys.stdout.write(f"\r{fleemessage}{dots}  ")
+                    
+                        sys.stdout.flush()
+                        time.sleep(1.5)
+
+
+                    if fleeattempt == checkattempt:
+
+                        print("You suceeded! :3")
+                        time.sleep(2)
+                        flee = True
+                        
+                    
+                    if fleeattempt != checkattempt :
+
+                        print("You Failed! :(")
+                        time.sleep(2)
+                        flee = False
+                        fleelocked = True
+
+            else:
+                print('\nPlease enter a valid input')
+                time.sleep(2)
 
 
 

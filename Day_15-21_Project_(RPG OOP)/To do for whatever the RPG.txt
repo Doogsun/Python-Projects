@@ -1,0 +1,27 @@
+To do for whatever the RPG
+
+-text formatting 
+    \n
+    animated text
+    time operations
+
+-move scaling based
+    based on player stat
+    based on enemy level
+
+-game formating 
+    player attack menu 
+    player attack lists and function handling
+
+-status effects
+    bleeding 
+    concussed
+
+-death cutscene and more text formatting yayayayayayayayayayayayayayay!!!!!!!! fuck!!!!!!1
+
+-player move cooldown system
+    display moves based on cooldown
+    used notes from eric list and flee stuff
+
+-clean up inconsistency in class information
+
