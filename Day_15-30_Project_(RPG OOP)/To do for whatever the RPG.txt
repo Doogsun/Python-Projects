@@ -5,9 +5,9 @@ To do for whatever the RPG
     animated text
     time operations
 
--move scaling based
-    based on player stat
-    based on enemy level
+#-move scaling based
+#    based on player stat
+#    based on enemy level
 
 -game formating 
     player attack menu 

@@ -57,8 +57,8 @@ def ChangeClass_Menu():
             set_class = "WAR"
             stattype_war = input("\n\nStat Menu --> Standard or Custom?\n\n> ").upper()
             if stattype_war in ("S", 'ST', 'STA', 'STAN', 'STAND', 'STANDA' 'STANDAR', 'STANDARD'):
-                warstat1 = 10
-                warstat2 = 20
+                warstat1 = 5
+                warstat2 = 30
                 return (warstat1, warstat2, set_class)
                 
 
@@ -82,8 +82,8 @@ def ChangeClass_Menu():
             set_class = "WIZ"
             stattype_wiz = input("\n\nStat Menu --> Standard or Custom?\n\n> ").upper()
             if stattype_wiz in ("S", 'ST', 'STA', 'STAN', 'STAND', 'STANDA' 'STANDAR', 'STANDARD'):
-                wizstat1 = 10
-                wizstat2 = 20
+                wizstat1 = 5
+                wizstat2 = 30
                 return (wizstat1, wizstat2, set_class)
                 
 
@@ -106,8 +106,8 @@ def ChangeClass_Menu():
             set_class = "ROG"
             stattype_rog = input("\n\nStat Menu --> Standard or Custom?\n\n> ").upper()
             if stattype_rog in ("S", 'ST', 'STA', 'STAN', 'STAND', 'STANDA' 'STANDAR', 'STANDARD'):
-                rogstat1 = 10
-                rogstat2 = 20
+                rogstat1 = 5
+                rogstat2 = 30
                 return (rogstat1, rogstat2, set_class)
                 
 
@@ -126,7 +126,8 @@ def ChangeClass_Menu():
 
 
 
-def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) of enemy or make it random, have it return stat data for enemies/ selected enemy
+def fight_menu(changeoutput):
+
     if changeoutput[2] == "WAR":
         select_class = "Warrior"
 
@@ -146,7 +147,7 @@ def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) o
                 stattype_goblin = input("\n\nStat Menu --> Standard or Random or Custom?\n*Warning. Random stat will not be balanced..*\n\n> ").upper()
                 if stattype_goblin in ('S', 'ST', 'STA', 'STAN', 'STAND', 'STANDA', 'STANDAR', 'STANDARD'):
                     goblinstat1 = 5
-                    goblinstat2 = 10
+                    goblinstat2 = 20
                 if stattype_goblin in ('R', 'RA', 'RAN', 'RAND', 'RANDO', 'RANDOM'):
                     
                     goblinstat1 = random.randint(1, 20)
@@ -187,7 +188,7 @@ def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) o
                 stattype_stone = input("\n\nStat Menu --> Standard or Random or Custom?\n*Warning. Random stat will not be balanced..*\n\n> ").upper()
                 if stattype_stone in ('S', 'ST', 'STA', 'STAN', 'STAND', 'STANDA', 'STANDAR', 'STANDARD'):
                     stonestat1 = 10
-                    stonestat2 = 20
+                    stonestat2 = 30
                 if stattype_stone in ('R', 'RA', 'RAN', 'RAND', 'RANDO', 'RANDOM'):
                     
                     stonestat1 = random.randint(1, 30)
@@ -229,7 +230,7 @@ def fight_menu(changeoutput): #ADD A feature to where you can set stas (level) o
                 stattype_RAH = input("\n\nStat Menu --> Standard or Random or Custom?\n*Warning. Random stat will not be balanced..*\n\n> ").upper()
                 if stattype_RAH in ('S', 'ST', 'STA', 'STAN', 'STAND', 'STANDA', 'STANDAR', 'STANDARD'):
                     RAHstat1 = 15
-                    RAHstat2 = 30
+                    RAHstat2 = 40
                 if stattype_RAH in ('R', 'RA', 'RAN', 'RAND', 'RANDO', 'RANDOM'):
                     
                     RAHstat1 = random.randint(1, 30)
@@ -357,11 +358,17 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
             turninput = input("> ").upper()
 
             if turninput in ('M', 'MO', 'MOV', 'MOVE'):
-                funclist[1]()
-                goblin1.takedamage(3)
+                playerdamage = funclist[1]()
+                goblin1.takedamage(playerdamage)
+                if goblin1.isalive == False:
+                    dead += True
+                    break
 
-                move = goblin1.choose_move()
-                player1.takedamage(move)
+                gobmove = goblin1.choose_move()
+                player1.takedamage(gobmove)
+                if player1.isalive == False:
+                    dead += True
+                    break
                 fleelocked = False
         
                                 
@@ -526,6 +533,19 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
             turninput = input("> ").upper()
 
             if turninput in ('M', 'MO', 'MOV', 'MOVE'):
+                
+                funclist[3]()
+                stone1.takedamage(10)
+                if stone1.isalive == False:
+                    dead += True
+                    break
+
+                damage = stone1.choose_move()
+                player1.takedamage(damage)
+                if player1.isalive == False:
+                    dead += True
+                    break
+
                 fleelocked = False
         
                                 
@@ -842,20 +862,32 @@ def stone_cutscene1():
     print("-------------------------------------------------------------------------------------------------------------------------------------")
     time.sleep(0.75)
 
-    print('\nThe ground starts shaking..')
+    print()
 
-    for i in range(2):
-        time.sleep(0.7)
-        print('THUMP\n')
-        time.sleep(0.7)
+    stonemessage = "The ground starts shaking"
+    for i in range(4):
+        dots = "." * i
+        sys.stdout.write(f"\r{stonemessage}{dots}  ")
+
+        sys.stdout.flush()
+        time.sleep(1.5)
+
+    time.sleep(2)
+    print("")
 
     for i in range(3):
-        time.sleep(0.25)
-        print('THUMP\n')
-        time.sleep(0.25)
-
-
+        print("\nTHUMP")
+        time.sleep(1.5)
+    
     time.sleep(1)
+    print("\nThe rumbling gets closer.")
+    time.sleep(2.5)
+
+    for i in range(3):
+        print("\nTHUMP")
+        time.sleep(0.9)
+
+    time.sleep(1.25)
 
 
 def rah_cutscene1():
@@ -922,13 +954,13 @@ def main():
         currentmenu = Opening_menu(runamount)
         if currentmenu in menu_index:
             if currentmenu == 1:
-                #try:
+                try:
                     runamount += 2
                     fightdata = fight_menu(changeoutput)
                     fighting(fightdata, changeoutput)
 
-                #except 
-                    #print("\n\nPlease select a class first. (Change class)")
+                except UnboundLocalError:
+                    print("\n\nPlease select a class first. (Change class)")
 
 #checks for to see if class is seleceted or not, temp takeway for debugging
 

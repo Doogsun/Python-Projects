@@ -7,6 +7,15 @@ class Goblin:
     def __init__ (self, level, hpstat):
 
         self.level = level
+        self.dscale = 0
+        
+        if self.level >= 10:
+            self.dscale = 2
+        if self.level >= 20:
+            self.dscale = 3
+        if self.level >= 30:
+            self.dscale = 4
+
         self.hpstat = hpstat + (2 * level)
         if hpstat > 0:
             self.isalive = True
@@ -48,15 +57,18 @@ class Goblin:
 
         if 1 <= goblinmove <= 53:
             self.punch()
-            return 1
+            dealt = 1 + self.dscale
+            return dealt
 
         if 54 <= goblinmove <= 76:
             self.smash()
-            return 2
+            dealt = 2 + self.dscale
+            return dealt
     
         if 77 <= goblinmove < 97:
             self.fury()
-            return 3
+            dealt = 3 + self.dscale
+            return dealt
             #bleeding
 
         if goblinmove in (97, 98, 99, 100):
@@ -67,23 +79,23 @@ class Goblin:
 
 
     def punch(self):
-        print("\nA lowly growl crawls out of the green baby... a wild haymaker gets thrown thrown at you.")
-        #hp -= 1 
+        print("\nThe goblin snarls and throws a wild, dirt-caked fist straight at your gut.")
+        
 
     def smash(self):
-        print("\nA a disgruntled scowl forms on the green baby... With a leap into the air, a set of green fists fly towards you.")
+        print("\nWith a screech, the goblin leaps—smashing both fists down like a falling rock")
         #hp -= 2 
         
 
     def fury(self):
-        print('\nFury build within the green baby... A cascade of low slashes sweep your ankles.')
+        print('\nEyes blazing, it goes feral-a flurry of wild kicks and slashes slashes your legs')
         #hp -=3
         #bleeding = True
 
 
     def evolve(self):
 
-        print("\nGRAVITY HAS BROUGHT ME HERE FOR A REASON... THE STARS HAVE ALIGNED!!! THE TIME OF EVOLUTION IS NOW!!!")
+        print("\nGRAVITY HAS BROUGHT ME HERE FOR A REASON...\nTHE STARS HAVE ALIGNED.\nTHE TIME OF EVOLUTION IS NOW!!!")
         time.sleep(5)
         self.hpstat += 20
         self.evovled = True
@@ -99,7 +111,7 @@ class Goblin:
         print(f"The goblin's HP = {self.hpstat}\n")
         time.sleep(2)
 
-        if self.hpstat < 0:
+        if self.hpstat <= 0:
             self.isalive = False
 
         if self.isalive == False:
@@ -111,6 +123,14 @@ class Golem:
 
     def __init__(self, level, hpstat):
         self.level = level
+
+        if self.level >= 10:
+            self.dscale = 2
+        if self.level >= 20:
+            self.dscale = 3
+        if self.level >= 30:
+            self.dscale = 4
+
         self.hpstat = hpstat + (2 * level)
         if hpstat > 0:
             self.isalive = True
@@ -146,15 +166,18 @@ class Golem:
 
         if 1 <= golemmove <= 43:
             self.strongleft()
-            return 2
+            dealt =  1 + self.dscale
+            return dealt
 
         if 44 <= golemmove <= 66:
             self.breakercombo()
-            return 4
+            dealt = 2 + self.dscale
+            return dealt
     
         if 67 <= golemmove <= 87:
             self.thunderclap()
-            return 3
+            dealt = 2 + self.dscale
+            return dealt
             #concussed
             
 
@@ -165,20 +188,20 @@ class Golem:
 
 
     def strongleft(self):
-        print("\nThe grinding of stone against stone... The hunkering mass of stone fires a crushing vortex from his left arm. ")
+        print("\nThe golem's left arm grinds forward—a crushing boulder fist slams down!")
         #hp -= 2
     
     def breakercombo(self):
-        print("\nA fierece wind surronds the hailing stone... RIGHT, LEFT, RIGHT, LEFT. Rapid Punches.. ")
+        print("\nStone fists blur in a flurry—RIGHT, LEFT, RIGHT—each hit shakes the ground.")
         #hp -= 4 
 
     def thunderclap(self):
-        print("\nThe ground begins to rumble.. The rock mass slams his fists together, creating a thundering shockwave.")
+        print("\nThe golem smashes its fists together—a shockwave booms, concussing you.")
         #hp -= 3 
         #concussed
 
     def grug(self):
-        print("\nStones shake and recover... Grug. Gruggy Grug 🪨")
+        print("\nThe golem rumbles deeply... 'Grug.' Crumbling rocks reform, healing its wounds.")
         self.hpstat += 7
 
 
@@ -190,7 +213,7 @@ class Golem:
         print(f"The Golem's HP = {self.hpstat}\n")
         time.sleep(2)
 
-        if self.hpstat < 0:
+        if self.hpstat <= 0:
             self.isalive = False
 
         if self.isalive == False:
@@ -202,6 +225,14 @@ class RAH:
 
     def __init__(self, level, hpstat):
         self.level = level
+
+        if self.level >= 10:
+            self.dscale = 2
+        if self.level >= 20:
+            self.dscale = 3
+        if self.level >= 30:
+            self.dscale = 4
+
         self.hpstat = hpstat + (2 * level)
         if hpstat > 0:
             self.isalive = True
@@ -248,39 +279,43 @@ class RAH:
 
         if 2 <= rahmove <= 43:
             self.Ray_Of_Sun()
-            return 2
+            dealt = 2 + self.dscale
+            return dealt
 
         if 44 <= rahmove <= 66:
             self.Solar_shards()
-            return 4
+            dealt = 4 + self.dscale
+            return dealt
     
         if 67 <= rahmove <= 87:
             self.Bolts_of_RAH()
-            return 3
+            dealt = 3 + self.dscale
+            return dealt
             #thunderclaped
             
         if  88 <= rahmove <= 100:
             self.RAHWARTH()
-            return 10
+            dealt = 10 + self.dscale
+            return dealt
 
 
 
     def Ray_Of_Sun(self):
-        print('A Precense of Divine Acuity Shines down on you... "YOU SHALL OBEY!! ')
+        print('"A blazing beam of divine light scorches down—"OBEY THE LIGHT!"')
         #hpstat -= 3
 
     def Bolts_of_RAH(self):
-        print("The a temporary eclispe blocks the sky... Pillars of light rain down on you")
+        print("The sky darkens as searing pillars of judgment strike from above.")
         #hpstat -= 4
         #concussed = True
 
     def Solar_shards(self):
-        print('"HA HA HA!!!"... A shattered star-shards of torment!')
+        print('Shards of a shattered star rain down, burning and cutting with cruelty.')
         #hpstat -= 3
         #bleeding = True
 
     def RAHWARTH(self):
-        print("Thats it... Its over for you.... Bleh! :p")
+        print('The suns full fury erupts—"THIS ENDS NOW!"')
         #hpstat -= 10
 
     def trueformed(self):
@@ -308,7 +343,7 @@ class RAH:
         print(f"RAH's HP = {self.hpstat}\n")
         time.sleep(2)
 
-        if self.hpstat < 0:
+        if self.hpstat <= 0:
             self.isalive = False
 
         if self.isalive == False:
