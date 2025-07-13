@@ -9,33 +9,34 @@ class Warrior:
         self.strstat = strstat
         self.hpstat = hpstat
         self.isalive = True
+        self.bleed = False
     
 
 
     def basic_atk(self):
-        print("\nWith a hefty swing of ol-betsy.. you slash at your opponent.")
+        print("\nA practiced swing of your sword cuts through the air.")
         damage = 2 + self.strstat
-        return damage
+        return damage, 0
 
 
     def warriors_serrate(self):
-        print("\nol-betsy stances up.. a swift dual slash grates your opponent.")
+        print("\nYou preform a swift dual slash-a cutting deep groves in your opponent")
         damage = 4 + self.strstat
-        return damage
+        return damage, 1
         #bleeding = True
 
 
     def pommel_strike(self):
-        print("\nYou swing your sword gracefully, weielding the pommel and hilt as a club.")
+        print("\nYYou reverse your grip on the sword - CRACK! - hammering it with your heavy hilt!")
         damage = 6 + self.strstat
-        return damage
+        return damage, 0
         #enemyhp -=3
 
 
     def whirlwind_spin(self):
-        print("\nA vortex of wind empowers you.. You unleash a reckless flury of spining slashes.")
+        print("\nYou spin rapidly, sword extended in a wide cutting arc")
         damage = 8 + self.strstat
-        return damage
+        return damage, 0 
         #enemyp -= 4
 
 
@@ -63,6 +64,32 @@ class Warrior:
                 time.sleep(2)
     
 
+
+    def bleeding_apply(self, duration=2):
+        self.bleed = True
+        self.bleed_duration = duration
+        time.sleep(2)
+        print('\nYou start bleeding.')
+        time.sleep(2)
+
+
+    def processbleeding(self):
+
+        if self.bleed == True:
+            self.hpstat -= 1
+            self.bleed_duration -= 1
+            print(f"\nYou took 1 bleed damage ({self.bleed_duration} left)")
+            time.sleep(2)
+
+            if self.bleed_duration <= 0:
+                self.bleed = False
+                print("\nYou stop bleeding.")
+                time.sleep(2)
+        
+            if self.hpstat <= 0:
+                self.isalive = False
+
+
 class Wizard:
 
     def __init__(self, arcstat, hpstat):
@@ -70,31 +97,32 @@ class Wizard:
         self.arcstat = arcstat
         self.hpstat = hpstat
         self.isalive = True
+        self.bleed = False
         
 
     def basic_atk(self):
-        print("\nMagic pools around you.. You send an arcane bolt at your opponent.")
+        print("\nYou send an arcane bolt at your opponent.")
         damage = 2 + self.arcstat
-        return damage
+        return damage, 0
     
 
     def magic_rain(self):
-        print("\nMagic surges into the sky.. You rain spiked shards of arcane down onto your opponent.")
+        print("\nYou summon sharp, barbed-magical shards, that fall from above.")
         damage = 4 + self.arcstat
-        return damage
+        return damage, 1
         #bleeding = True
 
     def magic_crackers(self):
-        print("\nMagic explodes into life.. A show of magical sparklers set your enemey a blaze.")
+        print("\nYou create explosive magical sparks that ignite on impact.")
         damage = 6 + self.arcstat
-        return damage
+        return damage, 0 
         #enemyhp -= 3 
 
 
     def arcanus_pinnus(self):
-        print("\nA large surge of magic converges into a small point.. A thin beam donut anything in its path.")
+        print("\nA large surge of magic converges into a small point- A thin beam pierces any foe.")
         damage = 8 + self.arcstat
-        return damage
+        return damage, 0
         #enemyhp -= 4
 
 
@@ -122,6 +150,31 @@ class Wizard:
                 time.sleep(2)
 
 
+    def bleeding_apply(self, duration=2):
+        self.bleed = True
+        self.bleed_duration = duration
+        time.sleep(2)
+        print('\nYou start bleeding.')
+        time.sleep(2)
+
+
+    def processbleeding(self):
+
+        if self.bleed == True:
+            self.hpstat -= 1
+            self.bleed_duration -= 1
+            print(f"\nYou took 1 bleed damage ({self.bleed_duration} left)")
+            time.sleep(2)
+
+            if self.bleed_duration <= 0:
+                self.bleed = False
+                print("\nYou stop bleeding.")
+                time.sleep(2)
+        
+            if self.hpstat <= 0:
+                self.isalive = False
+
+
 class Rogue:
 
     def __init__(self, dexstat, hpstat):
@@ -129,30 +182,31 @@ class Rogue:
         self.dexstat = dexstat
         self.hpstat = hpstat
         self.isalive = True
+        self.bleed = False
         
 
     def basic_atk(self):
-        print("\nA wisp of a robe is heard.. You execute a smooth, in and out slice with your dagger.")
+        print("\nAYou execute a smooth, in and out slice with your dagger.")
         damage = 2 + self.dexstat
-        return damage
+        return damage, 0
      
 
     def ankle_cutter(self):
-        print("\nA shadow slids across the floor.. You slash at your opponents ankles.")
+        print("\nA shadow slide across the floor-You slash at your opponents ankles.")
         damage = 4 + self.dexstat
-        return damage
-        #bleeding = True
+        return damage, 1
+        
 
     def dropkick_slash(self):
         print('\nA phaseflicker shrouds your movement.. You appear above your oppoenent, meteoring down and slasshing them.')
         damage = 6 + self.dexstat
-        return damage
+        return damage, 0
 
 
     def thousand_flashstep(self):
-        print("\nA flashstep slices through the air.. A flashtunnel of slashes sprials past your flashstep.")
+        print("\nA flashstep slices through the air.. A flashtunnel of slashes sprials past your opponent.")
         damage = 8 + self.dexstat
-        return damage
+        return damage, 0
 
 
     def takedamage(self, damage): 
@@ -177,6 +231,31 @@ class Rogue:
             if rogdeathmessage in (10, 11):
                 print('Stealth Stat = -99\n')
                 time.sleep(2)
+
+
+    def bleeding_apply(self, duration=2):
+        self.bleed = True
+        self.bleed_duration = duration
+        time.sleep(2)
+        print('\nYou start bleeding.')
+        time.sleep(2)
+
+
+    def processbleeding(self):
+
+        if self.bleed == True:
+            self.hpstat -= 1
+            self.bleed_duration -= 1
+            print(f"\nYou took 1 bleed damage ({self.bleed_duration} left)")
+            time.sleep(2)
+
+            if self.bleed_duration <= 0:
+                self.bleed = False
+                print("\nYou stop bleeding.")
+                time.sleep(2)
+        
+            if self.hpstat <= 0:
+                self.isalive = False
 
 
 #Could add a greater death scutscene and bar spacer but works for now

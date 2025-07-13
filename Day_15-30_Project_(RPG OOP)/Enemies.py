@@ -8,6 +8,8 @@ class Goblin:
 
         self.level = level
         self.dscale = 0
+        self.bleed = False
+        self.bleed_duration = 2 
         
         if self.level >= 10:
             self.dscale = 2
@@ -27,7 +29,7 @@ class Goblin:
 
 
     def choose_move(self):
-        goblinmove = random.randint(1,100)
+        goblinmove = 78 #random.randint(1,100)
         gobmessage = "The goblin is deciding"
         for i in range(4):
             dots = "." * i 
@@ -58,22 +60,22 @@ class Goblin:
         if 1 <= goblinmove <= 53:
             self.punch()
             dealt = 1 + self.dscale
-            return dealt
+            return dealt, 0 
 
         if 54 <= goblinmove <= 76:
             self.smash()
             dealt = 2 + self.dscale
-            return dealt
+            return dealt, 0 
     
         if 77 <= goblinmove < 97:
             self.fury()
             dealt = 3 + self.dscale
-            return dealt
+            return dealt, 1
             #bleeding
 
         if goblinmove in (97, 98, 99, 100):
             self.evolve()
-            return 0
+            return 0, 0 
             
 
 
@@ -117,12 +119,40 @@ class Goblin:
         if self.isalive == False:
             print("The goblin died\n") #placeholder for death cutscene or smth
             time.sleep(2)
+        
 
+    def bleeding_apply(self, duration=2):
+        self.bleed = True
+        self.bleed_duration = duration
+        time.sleep(2)
+        print('\nThe goblin starts bleeding.')
+        time.sleep(2)
+
+
+    def processbleeding(self):
+
+        if self.bleed == True:
+            self.hpstat -= 2 
+            self.bleed_duration -= 1
+            print(f"\nThe goblin took 2 bleed damage ({self.bleed_duration} left)")
+            time.sleep(2)
+
+            if self.bleed_duration <= 0:
+                self.bleed = False
+                print("\nThe goblin stops bleeding.")
+                time.sleep(2)
+        
+            if self.hpstat <= 0:
+                self.isalive = False
+
+        
+            
 
 class Golem:
 
     def __init__(self, level, hpstat):
         self.level = level
+        self.dscale = 0
 
         if self.level >= 10:
             self.dscale = 2
@@ -225,6 +255,7 @@ class RAH:
 
     def __init__(self, level, hpstat):
         self.level = level
+        self.dscale = 0
 
         if self.level >= 10:
             self.dscale = 2

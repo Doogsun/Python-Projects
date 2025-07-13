@@ -50,7 +50,7 @@ def ChangeClass_Menu():
 
     print("\n\n Charcter Selection --> Select a class")
     while True:
-        print("\n  Warror ⚔️\n\n  Wizard 🧙\n\n  Rogue 🌫️\n")
+        print("\n  Warrior ⚔️\n\n  Wizard 🧙\n\n  Rogue 🌫️\n")
         class_input = input("> " ).upper()
 
         if class_input in ("W", 'WA', 'WAR', 'WARR', 'WARRI', 'WARRIO', 'WARRIOR'):
@@ -333,7 +333,9 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
                 }
            
         
-        
+
+
+
         while dead or flee == False:
 
             if player1.isalive == False:
@@ -358,18 +360,40 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
             turninput = input("> ").upper()
 
             if turninput in ('M', 'MO', 'MOV', 'MOVE'):
+
                 playerdamage = funclist[1]()
-                goblin1.takedamage(playerdamage)
+                if playerdamage[1] == 1:
+                    goblin1.bleeding_apply()
+                    goblin1.processbleeding()
+
+                    
+                elif playerdamage[1] == 0:
+                    goblin1.processbleeding()
+                    pass
+
+                goblin1.takedamage(playerdamage[0])
                 if goblin1.isalive == False:
                     dead += True
                     break
 
+
                 gobmove = goblin1.choose_move()
-                player1.takedamage(gobmove)
+
+                if gobmove[1] == 1:
+                    player1.bleeding_apply()
+                    player1.processbleeding()
+                    bleedcount += 1
+
+                if gobmove[1] == 0:
+                    player1.processbleeding()
+                    pass
+                
+                player1.takedamage(gobmove[0])
+
                 if player1.isalive == False:
                     dead += True
                     break
-                fleelocked = False
+                fleelocked = False         
         
                                 
 
@@ -534,8 +558,8 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
 
             if turninput in ('M', 'MO', 'MOV', 'MOVE'):
                 
-                funclist[3]()
-                stone1.takedamage(10)
+                playerdamage = funclist[3]()
+                stone1.takedamage(playerdamage)
                 if stone1.isalive == False:
                     dead += True
                     break
@@ -708,8 +732,8 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
 
             if turninput in ('M', 'MO', 'MOV', 'MOVE'):
                 
-                funclist[3]()
-                rah1.takedamage(10)
+                playerdamage = funclist[1]()
+                rah1.takedamage(playerdamage)
                 if rah1.isalive == False:
                     dead += True
                     break
@@ -809,12 +833,6 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
 
 
 
-
-
-
-
-
-
 def gob_cutscene1():
 
     time.sleep(0.6)
@@ -845,6 +863,7 @@ def gob_cutscene1():
         time.sleep(1)
 
     time.sleep(1)
+
 
 
 def stone_cutscene1():
@@ -888,6 +907,7 @@ def stone_cutscene1():
         time.sleep(0.9)
 
     time.sleep(1.25)
+
 
 
 def rah_cutscene1():
@@ -942,8 +962,6 @@ def rah_cutscene1():
         sys.stdout.flush()
         time.sleep(1)
 
-    
-
 
 
 def main():
@@ -971,7 +989,6 @@ def main():
             elif currentmenu == 3:
                 break
             
-
    
 
 if __name__ == "__main__":
