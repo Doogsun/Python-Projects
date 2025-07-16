@@ -14,8 +14,11 @@ To do for whatever the RPG
     player attack lists and function handling
 
 -status effects
-    bleeding --> take 2 damage (last 2)
+#    bleeding --> take 2 damage (last 2)
     concussed --> skips a turn of an enemy (last 1)
+
+-add some miss text formatting
+    sys.stfout.write animating for decided for miss
 
 -death cutscene and more text formatting yayayayayayayayayayayayayayay!!!!!!!! fuck!!!!!!1
 

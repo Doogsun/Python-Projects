@@ -2,14 +2,16 @@ import random
 import time
 import sys
 
-class Goblin:
+
+
+class Goblin: 
 
     def __init__ (self, level, hpstat):
 
         self.level = level
         self.dscale = 0
         self.bleed = False
-        self.bleed_duration = 2 
+
         
         if self.level >= 10:
             self.dscale = 2
@@ -29,7 +31,8 @@ class Goblin:
 
 
     def choose_move(self):
-        goblinmove = 78 #random.randint(1,100)
+        missed = False
+        goblinmove = random.randint(1,100)
         gobmessage = "The goblin is deciding"
         for i in range(4):
             dots = "." * i 
@@ -37,7 +40,6 @@ class Goblin:
         
             sys.stdout.flush()
             time.sleep(1)
-
 
 
         if 1 <= goblinmove <= 53:
@@ -57,26 +59,42 @@ class Goblin:
         print(f'\nThe goblin decides to use "{used}"\n')
         time.sleep(2)
 
-        if 1 <= goblinmove <= 53:
-            self.punch()
-            dealt = 1 + self.dscale
-            return dealt, 0 
+        goblinmiss = random.randint(1,100)
+       
+        if 1<= goblinmiss <= 20:
+            missed = True
 
-        if 54 <= goblinmove <= 76:
-            self.smash()
-            dealt = 2 + self.dscale
-            return dealt, 0 
-    
-        if 77 <= goblinmove < 97:
-            self.fury()
-            dealt = 3 + self.dscale
-            return dealt, 1
-            #bleeding
-
-        if goblinmove in (97, 98, 99, 100):
-            self.evolve()
-            return 0, 0 
+        if 21<= goblinmiss <= 100:
+            missed = False
             
+        if missed == True:
+            time.sleep(1)
+            print(f'The goblin misses "{used}"\n')
+            time.sleep(2)
+            return 0, 0, 0
+
+
+        if missed == False:            #1:damage, 2:bleeding, 3:concussed
+            if 1 <= goblinmove <= 53:
+                self.punch()
+                dealt = 1 + self.dscale
+                return dealt, 0, 0
+
+            if 54 <= goblinmove <= 76:
+                self.smash()
+                dealt = 2 + self.dscale
+                return dealt, 0, 0
+        
+            if 77 <= goblinmove < 97:
+                self.fury()
+                dealt = 3 + self.dscale
+                return dealt, 1, 0
+                #bleeding
+
+            if goblinmove in (97, 98, 99, 100):
+                self.evolve()
+                return 0, 0, 0
+                
 
 
 
@@ -134,8 +152,10 @@ class Goblin:
         if self.bleed == True:
             self.hpstat -= 2 
             self.bleed_duration -= 1
-            print(f"\nThe goblin took 2 bleed damage ({self.bleed_duration} left)")
-            time.sleep(2)
+
+            if self.bleed_duration > 0:
+                print(f"\nThe goblin took 2 bleed damage ({self.bleed_duration} left)")
+                time.sleep(2)
 
             if self.bleed_duration <= 0:
                 self.bleed = False
@@ -144,15 +164,14 @@ class Goblin:
         
             if self.hpstat <= 0:
                 self.isalive = False
-
-        
-            
+         
 
 class Golem:
 
     def __init__(self, level, hpstat):
         self.level = level
         self.dscale = 0
+        self.bleed = False
 
         if self.level >= 10:
             self.dscale = 2
@@ -167,7 +186,8 @@ class Golem:
 
 
     def choose_move(self):
-        golemmove = random.randint(1,100)
+        missed = False
+        golemmove = 70 #random.randint(1,100)       for concussed testing
         golmessage = "The golem is deciding"
         for i in range(4):
             dots = "." * i 
@@ -194,26 +214,42 @@ class Golem:
         print(f'\nThe Golem uses "{used}"\n')
         time.sleep(2)
 
+        
+        stonemiss = random.randint(1,100)
+        
+        if 1 <= stonemiss <= 15:
+            missed = True
+
+        if 16 <= stonemiss <= 100:
+            missed = False
+            
+        if missed == True:
+            time.sleep(1)
+            print(f'The golem misses "{used}"\n')
+            time.sleep(2)
+            return 0, 0, 0
+
+
         if 1 <= golemmove <= 43:
             self.strongleft()
             dealt =  1 + self.dscale
-            return dealt
+            return dealt, 0, 0
 
         if 44 <= golemmove <= 66:
             self.breakercombo()
             dealt = 2 + self.dscale
-            return dealt
+            return dealt, 0, 0
     
         if 67 <= golemmove <= 87:
             self.thunderclap()
             dealt = 2 + self.dscale
-            return dealt
+            return dealt, 0, 1
             #concussed
             
 
         if  88 <= golemmove <= 100:
             self.grug()
-            return 0 
+            return 0, 0, 0
 
 
 
@@ -249,6 +285,31 @@ class Golem:
         if self.isalive == False:
             print("The golem died\n") #placeholder for death cutscene or smth
             time.sleep(2)
+
+        
+    def bleeding_apply(self, duration=2):
+            self.bleed = True
+            self.bleed_duration = duration
+            time.sleep(2)
+            print('\nThe golem starts bleeding.')
+            time.sleep(2)
+
+
+    def processbleeding(self):
+
+        if self.bleed == True:
+            self.hpstat -= 2 
+            self.bleed_duration -= 1
+            print(f"\nThe golem took 2 bleed damage ({self.bleed_duration} left)")
+            time.sleep(2)
+
+            if self.bleed_duration <= 0:
+                self.bleed = False
+                print("\nThe golem stops bleeding.")
+                time.sleep(2)
+        
+            if self.hpstat <= 0:
+                self.isalive = False
     
 
 class RAH:
@@ -256,6 +317,7 @@ class RAH:
     def __init__(self, level, hpstat):
         self.level = level
         self.dscale = 0
+        self.bleed = False
 
         if self.level >= 10:
             self.dscale = 2
@@ -273,6 +335,7 @@ class RAH:
 
 
     def choose_move(self):
+        missed = False
         rahmove = random.randint(1,100)
         rahmessage = 'The Prescence of a god is felt'
         for i in range(4):
@@ -298,36 +361,50 @@ class RAH:
             used = "RAHWRATH"
 
     
-
         print("")
         time.sleep(1)
         print(f'\nRAHs will is set. "{used}!"\n')
         time.sleep(2)
 
+
+        rahmiss = random.randint(1,100)
+        
+        if 1<= rahmiss <= 15:
+            missed = True
+
+        if 16<= rahmiss <= 100:
+            missed = False
+            
+
+        if missed == True:
+            time.sleep(1)
+            print(f'RAH misses "{used}"\n')
+            time.sleep(2)
+            return 0, 0, 0
+
         if rahmove == 1:
             self.trueformed()
-            return 0
+            return 0, 0, 0
 
         if 2 <= rahmove <= 43:
             self.Ray_Of_Sun()
             dealt = 2 + self.dscale
-            return dealt
+            return dealt, 0, 0
 
         if 44 <= rahmove <= 66:
             self.Solar_shards()
             dealt = 4 + self.dscale
-            return dealt
+            return dealt, 1, 0
     
         if 67 <= rahmove <= 87:
             self.Bolts_of_RAH()
             dealt = 3 + self.dscale
-            return dealt
-            #thunderclaped
+            return dealt, 0, 1
             
         if  88 <= rahmove <= 100:
             self.RAHWARTH()
             dealt = 10 + self.dscale
-            return dealt
+            return dealt, 0, 0
 
 
 
@@ -382,8 +459,29 @@ class RAH:
             time.sleep(2)
 
 
+    def bleeding_apply(self, duration=2):
+            self.bleed = True
+            self.bleed_duration = duration
+            time.sleep(2)
+            print('\nRAH starts bleeding.')
+            time.sleep(2)
 
 
+    def processbleeding(self):
+
+        if self.bleed == True:
+            self.hpstat -= 2 
+            self.bleed_duration -= 1
+            print(f"\nRAH took 2 bleed damage ({self.bleed_duration} left)")
+            time.sleep(2)
+
+            if self.bleed_duration <= 0:
+                self.bleed = False
+                print("\nRAH stops bleeding.")
+                time.sleep(2)
+        
+            if self.hpstat <= 0:
+                self.isalive = False
 
 
 

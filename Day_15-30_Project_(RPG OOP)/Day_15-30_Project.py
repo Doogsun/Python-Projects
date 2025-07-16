@@ -284,7 +284,7 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
         goblin1 = Goblin(fightdata[0], fightdata[1])
         
 
-        #gob_cutscene1()       #temp takewawy for QOL         #changeoutput ---> (10, 20, 'CLASS':WAR,ROG,WIZ)
+        #gob_cutscene1()       #temp takewawy for QOL         changeoutput ---> (10, 20, 'CLASS':WAR,ROG,WIZ)
         
         
         print('\n"A GOBLIN!!"\n')
@@ -361,7 +361,7 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
 
             if turninput in ('M', 'MO', 'MOV', 'MOVE'):
 
-                playerdamage = funclist[1]()
+                playerdamage = funclist[2]()
                 if playerdamage[1] == 1:
                     goblin1.bleeding_apply()
                     goblin1.processbleeding()
@@ -382,7 +382,7 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
                 if gobmove[1] == 1:
                     player1.bleeding_apply()
                     player1.processbleeding()
-                    bleedcount += 1
+
 
                 if gobmove[1] == 0:
                     player1.processbleeding()
@@ -486,7 +486,7 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
 
 
 
-        stone_cutscene1()       #temp takewawy for QOL         #changeoutput ---> (10, 20, 'CLASS':WAR,ROG,WIZ)
+        #stone_cutscene1()       #temp takewawy for QOL         #changeoutput ---> (10, 20, 'CLASS':WAR,ROG,WIZ)
         
         
         print('\nA COLOSSAL golem emerges!\n')
@@ -558,14 +558,36 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
 
             if turninput in ('M', 'MO', 'MOV', 'MOVE'):
                 
-                playerdamage = funclist[3]()
-                stone1.takedamage(playerdamage)
+                player1.process_concussed()
+                playerdamage = funclist[2]()
+                if playerdamage[1] == 1:
+                    stone1.bleeding_apply()
+                    stone1.processbleeding()
+
+                if playerdamage[1] == 0:
+                    stone1.processbleeding()
+                    pass
+
+                stone1.takedamage(playerdamage[0])
                 if stone1.isalive == False:
                     dead += True
                     break
 
-                damage = stone1.choose_move()
-                player1.takedamage(damage)
+
+
+                stonemove = stone1.choose_move()
+                if stonemove[1] == 1:
+                    player1.bleeding_apply()
+                    player1.processbleeding()           #no moves that apply both bleed and concuss, so should be fine
+
+                if stonemove[2] == 1:
+                    player1.apply_concussed()
+
+                if stonemove[1] and stonemove[2] == 0:
+                    player1.processbleeding()
+                    pass
+
+                player1.takedamage(stonemove[0])
                 if player1.isalive == False:
                     dead += True
                     break
@@ -732,14 +754,31 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
 
             if turninput in ('M', 'MO', 'MOV', 'MOVE'):
                 
-                playerdamage = funclist[1]()
-                rah1.takedamage(playerdamage)
+                playerdamage = funclist[2]()
+
+                if playerdamage[1] == 1:
+                    rah1.bleeding_apply()
+                    rah1.processbleeding()
+
+                if playerdamage[1] == 0:
+                    rah1.processbleeding()
+                    pass
+
+                rah1.takedamage(playerdamage[0])
                 if rah1.isalive == False:
                     dead += True
                     break
 
-                damage = rah1.choose_move()
-                player1.takedamage(damage)
+                rahmove = rah1.choose_move()
+                if rahmove[1] == 1:
+                    player1.bleeding_apply()
+                    player1.processbleeding()
+
+                if rahmove[1] == 0:
+                    player1.processbleeding()
+                    pass
+
+                player1.takedamage(rahmove[0])
                 if player1.isalive == False:
                     dead += True
                     break

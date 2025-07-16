@@ -10,6 +10,7 @@ class Warrior:
         self.hpstat = hpstat
         self.isalive = True
         self.bleed = False
+        self.concussed = False
     
 
 
@@ -88,6 +89,44 @@ class Warrior:
         
             if self.hpstat <= 0:
                 self.isalive = False
+
+
+    def apply_concussed(self, duration=2):
+        self.concussed = True
+        self.missrate = 40
+        self.concussed_duration = duration
+        time.sleep(2)
+        print(f"\nYou become concusssed")
+
+
+    def process_concussed(self):
+        missed = False
+        if self.concussed == True:
+            missmove = random.randint(1,100)
+            
+            if 1 <= missmove <= self.missrate:
+                missed = True
+
+            if missmove >= self.missrate + 1:
+                missed = False
+
+            print(f"\nYour are concussed.. {100 - self.missrate}% of move success")
+            time.sleep(2)
+
+            self.concussed_duration -= 1
+            self.missrate - 20
+
+            if self.concussed_duration <= 0:
+                self.concussed = False
+                print("\nYou are no longer concussed")
+
+            if missed == False:
+                return 0 
+            if missed == True:
+                return 1
+            
+
+
 
 
 class Wizard:
@@ -259,7 +298,3 @@ class Rogue:
 
 
 #Could add a greater death scutscene and bar spacer but works for now
-#1:2
-#2:4
-#3:6
-#4:8
