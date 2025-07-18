@@ -158,6 +158,9 @@ class Goblin:
                 time.sleep(2)
 
             if self.bleed_duration <= 0:
+                print(f"\nThe goblin took 2 bleed damage ({self.bleed_duration} left)\n")
+                time.sleep(2)
+                self.hpstat -= 2
                 self.bleed = False
                 print("\nThe goblin stops bleeding.")
                 time.sleep(2)
@@ -304,6 +307,9 @@ class Golem:
             time.sleep(2)
 
             if self.bleed_duration <= 0:
+                print(f"\nThe golem took 2 bleed damage ({self.bleed_duration} left)")
+                time.sleep(2)
+                self.hpstat -= 2
                 self.bleed = False
                 print("\nThe golem stops bleeding.")
                 time.sleep(2)
@@ -476,6 +482,9 @@ class RAH:
             time.sleep(2)
 
             if self.bleed_duration <= 0:
+                print(f"\nRAH took 2 bleed damage ({self.bleed_duration} left)")
+                time.sleep(2)
+                self.hpstat -= 2
                 self.bleed = False
                 print("\nRAH stops bleeding.")
                 time.sleep(2)

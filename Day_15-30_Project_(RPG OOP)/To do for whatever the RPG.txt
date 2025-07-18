@@ -28,3 +28,8 @@ To do for whatever the RPG
 
 -clean up inconsistency in class information
 
+
+
+
+-EUREKA!!! 
+    USE OOP TO DESIGN MOVE SELECTION AND COOLDOWNS!!!

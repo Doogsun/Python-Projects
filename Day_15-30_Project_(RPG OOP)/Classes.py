@@ -11,7 +11,87 @@ class Warrior:
         self.isalive = True
         self.bleed = False
         self.concussed = False
-    
+
+        self.cooldowns = {"Warrior Serrate - 2": {"timer":2, "max": 2, "active": False},
+                        "Pommel Strike - 3": {"timer":3, "max": 3, "active": False},
+                        "Whirlwind Spin - 4": {"timer": 4, "max": 4, "active": False}}
+        
+
+
+    def update_cooldowns(self):
+
+        for move, data in self.cooldowns.items():
+            
+            if data["active"]:
+                data["timer"] -= 1
+                if data["timer"] <= 0:
+                    data["timer"] = data["max"]
+                    data["active"] = False
+
+
+
+
+    def move_select(self):
+
+        self.update_cooldowns()
+
+        while True:        
+
+
+            
+
+
+            print(f'\nMove Select Menu --> Entesr  | Name -> Use  |  Digit -> Info | \n\n  Basic Atk - 1 \n\n  Warrior Serrate - 2\n\n  Pommel Strike - 3\n\n  Whirlwind Spin - 4\n')
+            prompt = input("> ")
+
+
+            if prompt == '1': #basic atk info
+                print('\n  "A simple slash of your sword."\n\n  Damage = 2 + strstat\n\n  Bleed = ❌\n\n  Cooldown = 1\n')
+                time.sleep(2)
+
+            if prompt == '2': #warrior serrate info
+                print('\n  "A swift dual slash. Causes bleeding."\n\n  Damage = 4 + strstat\n\n  Bleed = ✅\n\n  Cooldown = 2')
+                time.sleep(2)
+
+            if prompt == '3': #pommel_strike info
+                print('\n  "A blunt strike with your pommel"\n\n  Damage = 6 + strstat\n\n  Bleed = ❌\n\n  Cooldown = 3')
+                time.sleep(2)
+
+            if prompt == '4': #whirlwind strike info
+                print('\n  "A spinning sword slash."\n\n  Damage = 8 + strstat\n\n  Bleed = ❌\n\n  Cooldown = 4')
+                time.sleep(2)
+
+
+            if prompt.upper() in ('B', 'BA', 'BAS', 'BASI', 'BASIC', 'BASIC ', 'BASIC A', 'BASIC AT', 'BASIC ATK'):
+                attack = self.basic_atk()
+                return attack
+                
+
+            if prompt.upper() in ('W', 'WA', 'WAR', 'WARR', 'WARRI', 'WARRIO', 'WARRIOR', 'WARRIOR ', 'WARRIOR S','WARRIOR SE', 'WARRIOR SERR', 'WARRIOR SERRA', 'WARRIOR SERRAT', 'WARRIOR SERRATE'):
+                attack = self.warriors_serrate()
+                self.cooldowns["Warrior Serrate - 2"]["active"] = True
+                return attack
+
+
+            if prompt.upper() in ('P', 'PO', 'POM', 'POMM', 'POMME', 'POMMEL', 'POMMEL ', 'POMMEL S', 'POMMEL ST', 'POMMEL STR', 'POMMEL STRI', 'POMMEL STRIK', 'POMMEL STRIKE'):
+                attack = self.pommel_strike()
+                self.cooldowns["Pommel Strike - 3"]["active"] = True
+                return attack
+
+
+            if prompt.upper() in ('WH', 'WHI', 'WHIR', 'WHIRL', 'WHIRLW', 'WHIRLWI', 'WHIRLWIND', 'WHIRLWIND ','WHIRLWIND S', 'WHIRLWIND SP', 'WHIRLWIND SPI', 'WHIRLWIND SPIN'):
+                attack = self.whirlwind_spin()
+                self.cooldowns["Whirlwind Spin - 4"]["active"] = True
+                return attack
+
+
+            else:
+                print("\nPlease Enter | Name -> Use  |  Digit -> Info ")
+
+
+
+            
+            
 
 
     def basic_atk(self):
@@ -64,7 +144,6 @@ class Warrior:
                 print('Strong like a bull. Dead like a... dead guy?\n')
                 time.sleep(2)
     
-
 
     def bleeding_apply(self, duration=2):
         self.bleed = True
@@ -126,9 +205,6 @@ class Warrior:
                 return 1
             
 
-
-
-
 class Wizard:
 
     def __init__(self, arcstat, hpstat):
@@ -138,6 +214,48 @@ class Wizard:
         self.isalive = True
         self.bleed = False
         
+
+
+    def move_select(self):
+        while True:
+            print('\nMove Select Menu --> Enter  | Name -> Use  |  Digit -> Info | \n\n  Basic Atk - 1\n\n  Magic Rain - 2\n\n  Magic Crackers - 3\n\n  Arcanus Pinnus - 4\n')
+            prompt = input("> ")
+
+            if prompt == '1': 
+                print('\n  "A bolt of arcane."\n\n  Damage = 2 + arcstat\n\n  Bleed = ❌\n\n  Cooldown = 1')
+
+            elif prompt == '2': 
+                print('\n  "A hail of sharp magic rain. Causes bleeding."\n\n  Damage = 4 + arcstat\n\n  Bleed = ✅\n\n  Cooldown = 2')
+
+            elif prompt == '3': 
+                print('\n  "Arcane sparks that explode on contact. (Make sure to enter crackers not magic)."\n\n  Damage = 6 + arcstat\n\n  Bleed = ❌\n\n  Cooldown = 3')
+
+            elif prompt == '4': 
+                print('\n  "A concetrated magic beam."\n\n  Damage = 8 + arcstat\n\n  Bleed = ❌\n\n  Cooldown = 4')
+
+
+
+            if prompt.upper() in ('B', 'BA', 'BAS', 'BASI', 'BASIC', 'BASIC ', 'BASIC A', 'BASIC AT', 'BASIC ATK'):
+                damage =self.basic_atk()
+                return damage
+
+            elif prompt.upper() in ('M', 'MA', 'MAG', 'MAGI', 'MAGIC', 'MAGIC ', 'MAGIC R', 'MAGIC RA', 'MAGIC RAI', 'MAGIC RAIN'):
+                self.magic_rain()
+                return damage
+
+            elif prompt.upper() in ('C', 'CR,', 'CRA', 'CRAC', 'CRACK', 'CRACKE', 'CRACKER', 'CRACKERS', 'MAGIC C', 'MAGIC CR', 'MAGIC CRA', 'MAGIC CRAC', 'MAGIC CRACK', 'MAGIC CRACKE', 'MAGIC CRACKER', 'MAGIC CRACKERS'):
+                self.magic_crackers()
+                return damage
+
+            elif prompt.upper() in ('A', 'AR', 'ARC', 'ARCA', 'ARCAN', 'ARCANU', 'ARCANUS','ARCANUS ', 'ARCANUS P', 'ARCANUS PI', 'ARCANUS PIN', 'ARCANUS PINN', 'ARCANUS PINNU', 'ARCANUS PINNUS'):
+                self.arcanus_pinnus()
+                return damage
+
+            else:
+                print("\nPlease Enter | Name -> Use  |  Digit -> Info ")
+
+
+
 
     def basic_atk(self):
         print("\nYou send an arcane bolt at your opponent.")
@@ -224,6 +342,44 @@ class Rogue:
         self.bleed = False
         
 
+    def move_select(self):
+        while True:
+            print('\nMove Select Menu --> Enter  | Name -> Use  |  Digit -> Info | \n\n  Basic Atk - 1\n\n  Ankle Cutter - 2\n\n  Dropkick Slash - 3\n\n  Thousand Flashstep - 4\n')
+            prompt = input("> ").upper()
+
+            if prompt == 1: 
+                print('\n  "A slice of your dagger."\n\n  Damage = 2 + arcstat\n\n  Bleed = ❌\n\n  Cooldown = 1')
+
+            elif prompt == 2: 
+                print('\n  "A hail of sharp magic rain. Causes bleeding."\n\n  Damage = 4 + arcstat\n\n  Bleed = ✅\n\n  Cooldown = 2')
+
+            elif prompt == 3: 
+                print('\n  "Arcane sparks that explode on contact."\n\n  Damage = 6 + arcstat\n\n  Bleed = ❌\n\n  Cooldown = 3')
+
+            elif prompt == 4: 
+                print('\n  "A concetrated magic beam."\n\n  Damage = 8 + arcstat\n\n  Bleed = ❌\n\n  Cooldown = 4')
+
+
+            if prompt in ('B', 'BA', 'BAS', 'BASI', 'BASIC', 'BASIC ', 'BASIC A', 'BASIC AT', 'BASIC ATK'):
+                self.basic_atk()
+
+
+            elif prompt in ('A', 'AN', 'ANK', 'ANKL', 'ANKLE', 'ANKLE ', 'ANKLE C', 'ANKLE CU', 'ANKLE CUT', 'ANKLE CUTT', 'ANKLE CUTTE', 'ANKLE CUTTER'):
+                self.ankle_cutter()
+
+
+            elif prompt in ('D', 'DR', 'DRO', 'DROP', 'DROPK', 'DROPKI', 'DROPKIC', 'DROPKICK', 'DROPKICK ','DROPKICK S', 'DROPKICK SL', 'DROPKICK SLA', 'DROPKICK SLAS', 'DROPKICK SLASH'):
+                self.dropkick_slash()
+
+
+            elif prompt in ('T', 'TH', 'THO', 'THOU', 'THOUS', 'THOUSA', 'THOUSAN', 'THOUSAND', 'THOUSAND ','THOUSAND F', 'THOUSAND FL', 'THOUSAND FLA', 'THOUSAND FLAS', 'THOUSAND FLASH','THOUSAND FLASHS', 'THOUSAND FLASHST', 'THOUSAND FLASHSTE', 'THOUSAND FLASHSTEP'):
+                self.thousand_flashstep()
+
+
+            else:
+                print("\nPlease Enter | Name -> Use  |  Digit -> Info ")
+    
+
     def basic_atk(self):
         print("\nAYou execute a smooth, in and out slice with your dagger.")
         damage = 2 + self.dexstat
@@ -297,4 +453,9 @@ class Rogue:
                 self.isalive = False
 
 
+
+
+warrior = Warrior(1,1)
+while True:
+    warrior.move_select()
 #Could add a greater death scutscene and bar spacer but works for now

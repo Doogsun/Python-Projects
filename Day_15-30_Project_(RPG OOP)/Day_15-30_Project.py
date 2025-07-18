@@ -361,7 +361,7 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
 
             if turninput in ('M', 'MO', 'MOV', 'MOVE'):
 
-                playerdamage = funclist[2]()
+                playerdamage = player1.move_select()
                 if playerdamage[1] == 1:
                     goblin1.bleeding_apply()
                     goblin1.processbleeding()
@@ -558,8 +558,7 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
 
             if turninput in ('M', 'MO', 'MOV', 'MOVE'):
                 
-                player1.process_concussed()
-                playerdamage = funclist[2]()
+                playerdamage = player1.move_select()
                 if playerdamage[1] == 1:
                     stone1.bleeding_apply()
                     stone1.processbleeding()
@@ -754,7 +753,7 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
 
             if turninput in ('M', 'MO', 'MOV', 'MOVE'):
                 
-                playerdamage = funclist[2]()
+                playerdamage = player1.move_select()
 
                 if playerdamage[1] == 1:
                     rah1.bleeding_apply()
