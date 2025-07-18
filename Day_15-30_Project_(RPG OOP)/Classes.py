@@ -16,6 +16,7 @@ class Warrior:
                         "Pommel Strike - 3": {"timer":3, "max": 3, "active": False},
                         "Whirlwind Spin - 4": {"timer": 4, "max": 4, "active": False}}
         
+        self.printlist = ["Warrior Serrate - 2", "Pommel Strike - 3", "Whirlwind Spin - 4"]
 
 
     def update_cooldowns(self):
@@ -27,6 +28,29 @@ class Warrior:
                 if data["timer"] <= 0:
                     data["timer"] = data["max"]
                     data["active"] = False
+                    self.printlist.append(move)
+
+
+    def update_print(self):
+        
+        for move, data in self.cooldowns.items():
+            if data["active"] == True:
+                try:
+                    self.printlist.remove(move)
+                    
+                except ValueError:
+                    pass
+
+        print(self.printlist)
+        
+        
+        if "Warrior Serrate - 2" in self.printlist:
+            print("war worked")
+        if "Pommel Strike - 3" in self.printlist:
+            print('Pom worked')
+        if "Whirlwind Spin - 4" in self.printlist:
+            print("Whirl worked")
+        
 
 
 
@@ -34,32 +58,29 @@ class Warrior:
     def move_select(self):
 
         self.update_cooldowns()
+        self.update_print()
 
         while True:        
-
-
-            
-
 
             print(f'\nMove Select Menu --> Entesr  | Name -> Use  |  Digit -> Info | \n\n  Basic Atk - 1 \n\n  Warrior Serrate - 2\n\n  Pommel Strike - 3\n\n  Whirlwind Spin - 4\n')
             prompt = input("> ")
 
-
+        
             if prompt == '1': #basic atk info
                 print('\n  "A simple slash of your sword."\n\n  Damage = 2 + strstat\n\n  Bleed = ❌\n\n  Cooldown = 1\n')
-                time.sleep(2)
+                time.sleep(4)
 
             if prompt == '2': #warrior serrate info
                 print('\n  "A swift dual slash. Causes bleeding."\n\n  Damage = 4 + strstat\n\n  Bleed = ✅\n\n  Cooldown = 2')
-                time.sleep(2)
+                time.sleep(4)
 
             if prompt == '3': #pommel_strike info
                 print('\n  "A blunt strike with your pommel"\n\n  Damage = 6 + strstat\n\n  Bleed = ❌\n\n  Cooldown = 3')
-                time.sleep(2)
+                time.sleep(4)
 
             if prompt == '4': #whirlwind strike info
                 print('\n  "A spinning sword slash."\n\n  Damage = 8 + strstat\n\n  Bleed = ❌\n\n  Cooldown = 4')
-                time.sleep(2)
+                time.sleep(4)
 
 
             if prompt.upper() in ('B', 'BA', 'BAS', 'BASI', 'BASIC', 'BASIC ', 'BASIC A', 'BASIC AT', 'BASIC ATK'):
@@ -68,21 +89,37 @@ class Warrior:
                 
 
             if prompt.upper() in ('W', 'WA', 'WAR', 'WARR', 'WARRI', 'WARRIO', 'WARRIOR', 'WARRIOR ', 'WARRIOR S','WARRIOR SE', 'WARRIOR SERR', 'WARRIOR SERRA', 'WARRIOR SERRAT', 'WARRIOR SERRATE'):
-                attack = self.warriors_serrate()
-                self.cooldowns["Warrior Serrate - 2"]["active"] = True
-                return attack
+                
+                if self.cooldowns["Warrior Serrate - 2"]["active"] == True:
+                    print(f"\nThis move is currently on cooldown ({self.cooldowns["Warrior Serrate - 2"]["timer"]} left)\n")
+                    time.sleep(3)
+
+                elif self.cooldowns["Warrior Serrate - 2"]["active"] == False:
+                    attack = self.warriors_serrate()
+                    self.cooldowns["Warrior Serrate - 2"]["active"] = True
+                    return attack
 
 
             if prompt.upper() in ('P', 'PO', 'POM', 'POMM', 'POMME', 'POMMEL', 'POMMEL ', 'POMMEL S', 'POMMEL ST', 'POMMEL STR', 'POMMEL STRI', 'POMMEL STRIK', 'POMMEL STRIKE'):
-                attack = self.pommel_strike()
-                self.cooldowns["Pommel Strike - 3"]["active"] = True
-                return attack
+                if self.cooldowns["Pommel Strike - 3"]["active"] == True:
+                    print(f"\nThis move is currently on cooldown ({self.cooldowns["Pommel Strike - 3"]["timer"]} left)\n")
+                    time.sleep(3)
+                
+                elif self.cooldowns["Pommel Strike - 3"]["active"] == False:
+                    attack = self.pommel_strike()
+                    self.cooldowns["Pommel Strike - 3"]["active"] = True
+                    return attack
 
 
             if prompt.upper() in ('WH', 'WHI', 'WHIR', 'WHIRL', 'WHIRLW', 'WHIRLWI', 'WHIRLWIND', 'WHIRLWIND ','WHIRLWIND S', 'WHIRLWIND SP', 'WHIRLWIND SPI', 'WHIRLWIND SPIN'):
-                attack = self.whirlwind_spin()
-                self.cooldowns["Whirlwind Spin - 4"]["active"] = True
-                return attack
+                if self.cooldowns["Whirlwind Spin - 4"]["active"] == True:
+                    print(f"\nThis move is currently on cooldown ({self.cooldowns["Whirlwind Spin - 4"]["timer"]} left)\n")
+                    time.sleep(3)
+                
+                elif self.cooldowns["Whirlwind Spin - 4"]["active"] == False:
+                    attack = self.whirlwind_spin()
+                    self.cooldowns["Whirlwind Spin - 4"]["active"] = True
+                    return attack
 
 
             else:
@@ -96,12 +133,14 @@ class Warrior:
 
     def basic_atk(self):
         print("\nA practiced swing of your sword cuts through the air.")
+        time.sleep(2)
         damage = 2 + self.strstat
         return damage, 0
 
 
     def warriors_serrate(self):
         print("\nYou preform a swift dual slash-a cutting deep groves in your opponent")
+        time.sleep(2)        
         damage = 4 + self.strstat
         return damage, 1
         #bleeding = True
@@ -109,12 +148,14 @@ class Warrior:
 
     def pommel_strike(self):
         print("\nYYou reverse your grip on the sword - CRACK! - hammering it with your heavy hilt!")
+        time.sleep(2)
         damage = 6 + self.strstat
         return damage, 0
         #enemyhp -=3
 
 
     def whirlwind_spin(self):
+        time.sleep(2)
         print("\nYou spin rapidly, sword extended in a wide cutting arc")
         damage = 8 + self.strstat
         return damage, 0 
@@ -223,15 +264,19 @@ class Wizard:
 
             if prompt == '1': 
                 print('\n  "A bolt of arcane."\n\n  Damage = 2 + arcstat\n\n  Bleed = ❌\n\n  Cooldown = 1')
+                time.sleep(4)
 
             elif prompt == '2': 
                 print('\n  "A hail of sharp magic rain. Causes bleeding."\n\n  Damage = 4 + arcstat\n\n  Bleed = ✅\n\n  Cooldown = 2')
+                time.sleep(4)
 
             elif prompt == '3': 
                 print('\n  "Arcane sparks that explode on contact. (Make sure to enter crackers not magic)."\n\n  Damage = 6 + arcstat\n\n  Bleed = ❌\n\n  Cooldown = 3')
+                time.sleep(4)
 
             elif prompt == '4': 
                 print('\n  "A concetrated magic beam."\n\n  Damage = 8 + arcstat\n\n  Bleed = ❌\n\n  Cooldown = 4')
+                time.sleep(4)
 
 
 
@@ -259,18 +304,21 @@ class Wizard:
 
     def basic_atk(self):
         print("\nYou send an arcane bolt at your opponent.")
+        time.sleep(2)
         damage = 2 + self.arcstat
         return damage, 0
     
 
     def magic_rain(self):
         print("\nYou summon sharp, barbed-magical shards, that fall from above.")
+        time.sleep(2)
         damage = 4 + self.arcstat
         return damage, 1
         #bleeding = True
 
     def magic_crackers(self):
         print("\nYou create explosive magical sparks that ignite on impact.")
+        time.sleep(2)
         damage = 6 + self.arcstat
         return damage, 0 
         #enemyhp -= 3 
@@ -278,6 +326,7 @@ class Wizard:
 
     def arcanus_pinnus(self):
         print("\nA large surge of magic converges into a small point- A thin beam pierces any foe.")
+        time.sleep(2)
         damage = 8 + self.arcstat
         return damage, 0
         #enemyhp -= 4
@@ -349,15 +398,19 @@ class Rogue:
 
             if prompt == 1: 
                 print('\n  "A slice of your dagger."\n\n  Damage = 2 + arcstat\n\n  Bleed = ❌\n\n  Cooldown = 1')
+                time.sleep(4)
 
             elif prompt == 2: 
                 print('\n  "A hail of sharp magic rain. Causes bleeding."\n\n  Damage = 4 + arcstat\n\n  Bleed = ✅\n\n  Cooldown = 2')
+                time.sleep(4)
 
             elif prompt == 3: 
                 print('\n  "Arcane sparks that explode on contact."\n\n  Damage = 6 + arcstat\n\n  Bleed = ❌\n\n  Cooldown = 3')
+                time.sleep(4)
 
             elif prompt == 4: 
                 print('\n  "A concetrated magic beam."\n\n  Damage = 8 + arcstat\n\n  Bleed = ❌\n\n  Cooldown = 4')
+                time.sleep(4)
 
 
             if prompt in ('B', 'BA', 'BAS', 'BASI', 'BASIC', 'BASIC ', 'BASIC A', 'BASIC AT', 'BASIC ATK'):
@@ -382,24 +435,28 @@ class Rogue:
 
     def basic_atk(self):
         print("\nAYou execute a smooth, in and out slice with your dagger.")
+        time.sleep(2)
         damage = 2 + self.dexstat
         return damage, 0
      
 
     def ankle_cutter(self):
         print("\nA shadow slide across the floor-You slash at your opponents ankles.")
+        time.sleep(2)
         damage = 4 + self.dexstat
         return damage, 1
         
 
     def dropkick_slash(self):
         print('\nA phaseflicker shrouds your movement.. You appear above your oppoenent, meteoring down and slasshing them.')
+        time.sleep(2)
         damage = 6 + self.dexstat
         return damage, 0
 
 
     def thousand_flashstep(self):
         print("\nA flashstep slices through the air.. A flashtunnel of slashes sprials past your opponent.")
+        time.sleep(2)           
         damage = 8 + self.dexstat
         return damage, 0
 
