@@ -360,8 +360,8 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
             turninput = input("> ").upper()
 
             if turninput in ('M', 'MO', 'MOV', 'MOVE'):
-
                 playerdamage = player1.move_select()
+
                 if playerdamage[1] == 1:
                     goblin1.bleeding_apply()
                     goblin1.processbleeding()
@@ -383,6 +383,8 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
                     player1.bleeding_apply()
                     player1.processbleeding()
 
+                if gobmove[2] == 1:
+                    player1.apply_concussed()
 
                 if gobmove[1] == 0:
                     player1.processbleeding()
@@ -557,11 +559,12 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
             turninput = input("> ").upper()
 
             if turninput in ('M', 'MO', 'MOV', 'MOVE'):
-                
                 playerdamage = player1.move_select()
+
                 if playerdamage[1] == 1:
                     stone1.bleeding_apply()
                     stone1.processbleeding()
+
 
                 if playerdamage[1] == 0:
                     stone1.processbleeding()
@@ -577,7 +580,7 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
                 stonemove = stone1.choose_move()
                 if stonemove[1] == 1:
                     player1.bleeding_apply()
-                    player1.processbleeding()           #no moves that apply both bleed and concuss, so should be fine
+                    player1.processbleeding()           
 
                 if stonemove[2] == 1:
                     player1.apply_concussed()
@@ -587,10 +590,10 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
                     pass
 
                 player1.takedamage(stonemove[0])
+
                 if player1.isalive == False:
                     dead += True
                     break
-
                 fleelocked = False
         
                                 
@@ -752,12 +755,12 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
             turninput = input("> ").upper()
 
             if turninput in ('M', 'MO', 'MOV', 'MOVE'):
-                
                 playerdamage = player1.move_select()
 
                 if playerdamage[1] == 1:
                     rah1.bleeding_apply()
                     rah1.processbleeding()
+
 
                 if playerdamage[1] == 0:
                     rah1.processbleeding()
@@ -769,19 +772,27 @@ def fighting(fightdata, changeoutput): #fightdata ---> (enemystat1, hpstat, 'ene
                     break
 
                 rahmove = rah1.choose_move()
-                if rahmove[1] == 1:
+
+                if rahmove[1] and rahmove[2] == 1:
+                    player1.bleeding_apply()
+                    player1.apply_concussed()
+
+                elif rahmove[1] == 1:
                     player1.bleeding_apply()
                     player1.processbleeding()
 
-                if rahmove[1] == 0:
+                elif rahmove[2] == 1:
+                    player1.apply_concussed()
+
+                elif rahmove[1] and rahmove[2] == 0:
                     player1.processbleeding()
                     pass
 
                 player1.takedamage(rahmove[0])
+
                 if player1.isalive == False:
                     dead += True
                     break
-
                 fleelocked = False
         
                                 
@@ -1010,13 +1021,13 @@ def main():
         currentmenu = Opening_menu(runamount)
         if currentmenu in menu_index:
             if currentmenu == 1:
-                try:
+                #try:
                     runamount += 2
                     fightdata = fight_menu(changeoutput)
                     fighting(fightdata, changeoutput)
 
-                except UnboundLocalError:
-                    print("\n\nPlease select a class first. (Change class)")
+                #except UnboundLocalError:
+                    #print("\n\nPlease select a class first. (Change class)")
 
 #checks for to see if class is seleceted or not, temp takeway for debugging
 

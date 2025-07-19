@@ -190,7 +190,7 @@ class Golem:
 
     def choose_move(self):
         missed = False
-        golemmove = 70 #random.randint(1,100)       for concussed testing
+        golemmove = random.randint(1,100)       
         golmessage = "The golem is deciding"
         for i in range(4):
             dots = "." * i 
@@ -220,10 +220,10 @@ class Golem:
         
         stonemiss = random.randint(1,100)
         
-        if 1 <= stonemiss <= 15:
+        if 1 <= stonemiss <= 25:
             missed = True
 
-        if 16 <= stonemiss <= 100:
+        if 26 <= stonemiss <= 100:
             missed = False
             
         if missed == True:
@@ -307,9 +307,7 @@ class Golem:
             time.sleep(2)
 
             if self.bleed_duration <= 0:
-                print(f"\nThe golem took 2 bleed damage ({self.bleed_duration} left)")
                 time.sleep(2)
-                self.hpstat -= 2
                 self.bleed = False
                 print("\nThe golem stops bleeding.")
                 time.sleep(2)
@@ -342,7 +340,7 @@ class RAH:
 
     def choose_move(self):
         missed = False
-        rahmove = random.randint(1,100)
+        rahmove = 96 #random.randint(1,100)
         rahmessage = 'The Prescence of a god is felt'
         for i in range(4):
             dots = "." * i 
@@ -375,10 +373,10 @@ class RAH:
 
         rahmiss = random.randint(1,100)
         
-        if 1<= rahmiss <= 15:
+        if 1<= rahmiss <= 25:
             missed = True
 
-        if 16<= rahmiss <= 100:
+        if 26<= rahmiss <= 100:
             missed = False
             
 
@@ -410,7 +408,7 @@ class RAH:
         if  88 <= rahmove <= 100:
             self.RAHWARTH()
             dealt = 10 + self.dscale
-            return dealt, 0, 0
+            return dealt, 1, 1
 
 
 
@@ -482,8 +480,6 @@ class RAH:
             time.sleep(2)
 
             if self.bleed_duration <= 0:
-                print(f"\nRAH took 2 bleed damage ({self.bleed_duration} left)")
-                time.sleep(2)
                 self.hpstat -= 2
                 self.bleed = False
                 print("\nRAH stops bleeding.")

@@ -41,24 +41,46 @@ class Warrior:
                 except ValueError:
                     pass
 
-        print(self.printlist)
-        
-        
-        if "Warrior Serrate - 2" in self.printlist:
-            print("war worked")
-        if "Pommel Strike - 3" in self.printlist:
-            print('Pom worked')
-        if "Whirlwind Spin - 4" in self.printlist:
-            print("Whirl worked")
+
+        #if "Warrior Serrate - 2" in self.printlist:
+        #    pass
+        #if "Pommel Strike - 3" in self.printlist:
+        #    pass
+        #if "Whirlwind Spin - 4" in self.printlist:
+        #    pass
         
 
-
+    def missedatk(self):
+        missfun = random.randint(1,100)
+        if 1 <= missfun <= 33:
+            print("\nYou miss your attack.")
+        if 33 <= missfun <= 66:
+            print("\nYou forget where you are.")
+        if 67 <= missfun <= 100:
+            print("\nYou attempt to attack, but accidently trip and fall")
+            time.sleep(2)
+            print("\nYou hit your face on a rock and take 2 damage.")
+            time.sleep(2)
+            damage = 2
+            self.hpstat -= damage
+            print(f"\nYou took {damage} damage!")
+            
+        time.sleep(2)
 
 
     def move_select(self):
 
+        missed = False
+
+        if self.concussed == True:
+            miss = self.process_concussed()
+            if miss == 1:
+                missed = True
+
+            elif miss == 0: 
+                missed = False
         self.update_cooldowns()
-        self.update_print()
+        #self.update_print() lowkey too much work. For after text formatting pain
 
         while True:        
 
@@ -84,8 +106,13 @@ class Warrior:
 
 
             if prompt.upper() in ('B', 'BA', 'BAS', 'BASI', 'BASIC', 'BASIC ', 'BASIC A', 'BASIC AT', 'BASIC ATK'):
-                attack = self.basic_atk()
-                return attack
+                if missed == False:
+                    attack = self.basic_atk()
+                    return attack
+                
+                elif missed == True:
+                    self.missedatk()
+                    return 0, 0
                 
 
             if prompt.upper() in ('W', 'WA', 'WAR', 'WARR', 'WARRI', 'WARRIO', 'WARRIOR', 'WARRIOR ', 'WARRIOR S','WARRIOR SE', 'WARRIOR SERR', 'WARRIOR SERRA', 'WARRIOR SERRAT', 'WARRIOR SERRATE'):
@@ -95,9 +122,15 @@ class Warrior:
                     time.sleep(3)
 
                 elif self.cooldowns["Warrior Serrate - 2"]["active"] == False:
-                    attack = self.warriors_serrate()
-                    self.cooldowns["Warrior Serrate - 2"]["active"] = True
-                    return attack
+                    if missed == False:
+                        attack = self.warriors_serrate()
+                        self.cooldowns["Warrior Serrate - 2"]["active"] = True
+                        return attack
+                        
+                    elif missed == True:
+                        self.missedatk()
+                        return 0, 0
+                    
 
 
             if prompt.upper() in ('P', 'PO', 'POM', 'POMM', 'POMME', 'POMMEL', 'POMMEL ', 'POMMEL S', 'POMMEL ST', 'POMMEL STR', 'POMMEL STRI', 'POMMEL STRIK', 'POMMEL STRIKE'):
@@ -106,9 +139,14 @@ class Warrior:
                     time.sleep(3)
                 
                 elif self.cooldowns["Pommel Strike - 3"]["active"] == False:
-                    attack = self.pommel_strike()
-                    self.cooldowns["Pommel Strike - 3"]["active"] = True
-                    return attack
+                    if missed == False:
+                        attack = self.pommel_strike()
+                        self.cooldowns["Pommel Strike - 3"]["active"] = True
+                        return attack
+                    
+                    if missed == True:
+                        self.missedatk()
+                        return 0, 0
 
 
             if prompt.upper() in ('WH', 'WHI', 'WHIR', 'WHIRL', 'WHIRLW', 'WHIRLWI', 'WHIRLWIND', 'WHIRLWIND ','WHIRLWIND S', 'WHIRLWIND SP', 'WHIRLWIND SPI', 'WHIRLWIND SPIN'):
@@ -117,18 +155,18 @@ class Warrior:
                     time.sleep(3)
                 
                 elif self.cooldowns["Whirlwind Spin - 4"]["active"] == False:
-                    attack = self.whirlwind_spin()
-                    self.cooldowns["Whirlwind Spin - 4"]["active"] = True
-                    return attack
+                    if missed == False:
+                        attack = self.whirlwind_spin()
+                        self.cooldowns["Whirlwind Spin - 4"]["active"] = True
+                        return attack
+                    
+                    if missed == True:
+                        self.missedatk()
+                        return 0, 0
 
 
             else:
                 print("\nPlease Enter | Name -> Use  |  Digit -> Info ")
-
-
-
-            
-            
 
 
     def basic_atk(self):
@@ -155,8 +193,8 @@ class Warrior:
 
 
     def whirlwind_spin(self):
-        time.sleep(2)
         print("\nYou spin rapidly, sword extended in a wide cutting arc")
+        time.sleep(2)
         damage = 8 + self.strstat
         return damage, 0 
         #enemyp -= 4
@@ -190,7 +228,7 @@ class Warrior:
         self.bleed = True
         self.bleed_duration = duration
         time.sleep(2)
-        print('\nYou start bleeding.')
+        print('\nYou start bleeding. 🩸')
         time.sleep(2)
 
 
@@ -212,12 +250,12 @@ class Warrior:
 
 
     def apply_concussed(self, duration=2):
-        self.concussed = True
-        self.missrate = 40
         self.concussed_duration = duration
         time.sleep(2)
-        print(f"\nYou become concusssed")
-
+        print(f"\nYou become concusssed. 😵‍💫")
+        self.concussed = True
+        self.missrate = 40
+        
 
     def process_concussed(self):
         missed = False
@@ -234,14 +272,15 @@ class Warrior:
             time.sleep(2)
 
             self.concussed_duration -= 1
-            self.missrate - 20
+            self.missrate -= 20
 
             if self.concussed_duration <= 0:
                 self.concussed = False
+                missed = False
                 print("\nYou are no longer concussed")
 
             if missed == False:
-                return 0 
+                return 0
             if missed == True:
                 return 1
             
@@ -254,10 +293,71 @@ class Wizard:
         self.hpstat = hpstat
         self.isalive = True
         self.bleed = False
+        self.concussed = False
+
+        self.cooldowns = {"Magic Rain - 2": {"timer":2, "max": 2, "active": False},
+                        "Magic Crackers - 3": {"timer":3, "max": 3, "active": False},
+                        "Arcanus Pinnus - 4": {"timer": 4, "max": 4, "active": False}}
+    
+        self.printlist = ["Magic Rain - 2", "Magic Crackers - 3", "Arcanus Pinnus - 4"]
         
+
+    def update_cooldowns(self):
+
+
+        for move, data in self.cooldowns.items():
+            
+            if data["active"]:
+                data["timer"] -= 1
+                if data["timer"] <= 0:
+                    data["timer"] = data["max"]
+                    data["active"] = False
+                    self.printlist.append(move)
+
+
+    def update_print(self):
+        
+        for move, data in self.cooldowns.items():
+            if data["active"] == True:
+                try:
+                    self.printlist.remove(move)
+                    
+                except ValueError:
+                    pass
+
+
+    def missedatk(self):
+        missfun = random.randint(1,100)
+        if 1 <= missfun <= 33:
+            print("\nYou miss your attack.")
+        if 33 <= missfun <= 66:
+            print("\nYou forget where you are.")
+        if 67 <= missfun <= 100:
+            print("\nYou attempt to attack, but accidently trip and fall")
+            time.sleep(2)
+            print("\nYou hit your face on a rock and take 2 damage.")
+            time.sleep(2)
+            damage = 2
+            self.hpstat -= damage
+            print(f"\nYou took {damage} damage!")
+
+        time.sleep(2)
 
 
     def move_select(self):
+        
+        missed = False
+
+        if self.concussed == True:
+            miss = self.process_concussed()
+            if miss == 1:
+                missed = True
+
+            elif miss == 0: 
+                missed = False
+        self.update_cooldowns()
+
+
         while True:
             print('\nMove Select Menu --> Enter  | Name -> Use  |  Digit -> Info | \n\n  Basic Atk - 1\n\n  Magic Rain - 2\n\n  Magic Crackers - 3\n\n  Arcanus Pinnus - 4\n')
             prompt = input("> ")
@@ -281,25 +381,67 @@ class Wizard:
 
 
             if prompt.upper() in ('B', 'BA', 'BAS', 'BASI', 'BASIC', 'BASIC ', 'BASIC A', 'BASIC AT', 'BASIC ATK'):
-                damage =self.basic_atk()
-                return damage
+                if missed == False:
+                    damage = self.basic_atk()
+                    return damage
+                
+                elif missed == True:
+                    self.missedatk()
+                    return 0,0
+
 
             elif prompt.upper() in ('M', 'MA', 'MAG', 'MAGI', 'MAGIC', 'MAGIC ', 'MAGIC R', 'MAGIC RA', 'MAGIC RAI', 'MAGIC RAIN'):
-                self.magic_rain()
-                return damage
+
+                if self.cooldowns["Magic Rain - 2"]["active"] == True:
+                    print(f"\nThis move is currently on cooldown ({self.cooldowns["Magic Rain - 2"]["timer"]} left)\n")
+                    time.sleep(3)
+
+                elif self.cooldowns["Magic Rain - 2"]["active"] == False:
+                    if missed == False:
+                        damage = self.magic_rain()
+                        self.cooldowns["Magic Rain - 2"]["active"] = True
+                        return damage
+                    
+                    elif missed == True:
+                        self.missedatk()
+                        return 0, 0
+                
 
             elif prompt.upper() in ('C', 'CR,', 'CRA', 'CRAC', 'CRACK', 'CRACKE', 'CRACKER', 'CRACKERS', 'MAGIC C', 'MAGIC CR', 'MAGIC CRA', 'MAGIC CRAC', 'MAGIC CRACK', 'MAGIC CRACKE', 'MAGIC CRACKER', 'MAGIC CRACKERS'):
-                self.magic_crackers()
-                return damage
+                
+                if self.cooldowns["Magic Crackers - 3"]["active"] == True:
+                    print(f"\nThis move is currently on cooldown ({self.cooldowns["Magic Crackers - 3"]["timer"]} left)\n")
+                    time.sleep(3)
+
+                elif self.cooldowns["Magic Crackers - 3"]["active"] == False:
+                    if missed == False:
+                        damage = self.magic_crackers()
+                        self.cooldowns["Magic Crackers - 3"]["active"] = True
+                        return damage
+                    
+                    elif missed == True:
+                        self.missedatk()
+                        return 0, 0
+            
+
 
             elif prompt.upper() in ('A', 'AR', 'ARC', 'ARCA', 'ARCAN', 'ARCANU', 'ARCANUS','ARCANUS ', 'ARCANUS P', 'ARCANUS PI', 'ARCANUS PIN', 'ARCANUS PINN', 'ARCANUS PINNU', 'ARCANUS PINNUS'):
-                self.arcanus_pinnus()
-                return damage
+                if self.cooldowns["Arcanus Pinnus - 4"]["active"] == True:
+                    print(f"\nThis move is currently on cooldown ({self.cooldowns["Arcanus Pinnus - 4"]["timer"]} left)\n")
+                    time.sleep(3)
+                
+                elif self.cooldowns["Arcanus Pinnus - 4"]["active"] == False:
+                    if missed == False:
+                        attack = self.arcanus_pinnus()
+                        self.cooldowns["Arcanus Pinnus - 4"]["active"] = True
+                        return attack
+                    
+                    if missed == True:
+                        self.missedatk()
+                        return 0, 0
 
             else:
                 print("\nPlease Enter | Name -> Use  |  Digit -> Info ")
-
-
 
 
     def basic_atk(self):
@@ -315,6 +457,7 @@ class Wizard:
         damage = 4 + self.arcstat
         return damage, 1
         #bleeding = True
+
 
     def magic_crackers(self):
         print("\nYou create explosive magical sparks that ignite on impact.")
@@ -360,7 +503,7 @@ class Wizard:
         self.bleed = True
         self.bleed_duration = duration
         time.sleep(2)
-        print('\nYou start bleeding.')
+        print('\nYou start bleeding.🩸')
         time.sleep(2)
 
 
@@ -381,6 +524,42 @@ class Wizard:
                 self.isalive = False
 
 
+    def apply_concussed(self, duration=2):
+        self.concussed_duration = duration
+        time.sleep(2)
+        print(f"\nYou become concusssed")
+        self.concussed = True
+        self.missrate = 40
+
+
+    def process_concussed(self):
+        missed = False
+        if self.concussed == True:
+            missmove = random.randint(1,100)
+            
+            if 1 <= missmove <= self.missrate:
+                missed = True
+
+            if missmove >= self.missrate + 1:
+                missed = False
+
+            print(f"\nYour are concussed.. {100 - self.missrate}% of move success")
+            time.sleep(2)
+
+            self.concussed_duration -= 1
+            self.missrate -= 20
+
+            if self.concussed_duration <= 0:
+                self.concussed = False
+                missed = False
+                print("\nYou are no longer concussed")
+
+            if missed == False:
+                return 0 
+            if missed == True:
+                return 1
+
+
 class Rogue:
 
     def __init__(self, dexstat, hpstat):
@@ -389,10 +568,61 @@ class Rogue:
         self.hpstat = hpstat
         self.isalive = True
         self.bleed = False
+        self.concussed = False
         
+        self.cooldowns = {"Ankle Cutter - 2": {"timer":2, "max": 2, "active":False},
+                          "Dropkick Slash - 3": {"timer":3, "max": 3, "active": False},
+                        "Thousand Flashtep - 4": {"timer": 4, "max": 4, "active": False}}
+
+        self.printlist = ["Ankle Cutter - 2", "Dropkick Slash - 3", "Thousand Flashstep - 4"]
+
+
+    def update_cooldowns(self):
+
+        for move, data in self.cooldowns.items():
+            
+            if data["active"]:
+                data["timer"] -= 1
+                if data["timer"] <= 0:
+                    data["timer"] = data["max"]
+                    data["active"] = False
+                    self.printlist.append(move)
+
+
+    def missedatk(self):
+        missfun = random.randint(1,100)
+        if 1 <= missfun <= 33:
+            print("\nYou miss your attack.")
+        if 33 <= missfun <= 66:
+            print("\nYou forget where you are.")
+        if 67 <= missfun <= 100:
+            print("\nYou attempt to attack, but accidently trip and fall")
+            time.sleep(2)
+            print("\nYou hit your face on a rock and take 2 damage.")
+            time.sleep(2)
+            damage = 2
+            self.hpstat -= damage
+            print(f"\nYou took {damage} damage!")
+            
+        time.sleep(2)
+
 
     def move_select(self):
+
+        missed = False
+
+        if self.concussed == True:
+            miss = self.process_concussed()
+            if miss == 1:
+                missed = True
+
+            elif miss == 0: 
+                missed = False
+        self.update_cooldowns()
+
+
         while True:
+
             print('\nMove Select Menu --> Enter  | Name -> Use  |  Digit -> Info | \n\n  Basic Atk - 1\n\n  Ankle Cutter - 2\n\n  Dropkick Slash - 3\n\n  Thousand Flashstep - 4\n')
             prompt = input("> ").upper()
 
@@ -414,19 +644,72 @@ class Rogue:
 
 
             if prompt in ('B', 'BA', 'BAS', 'BASI', 'BASIC', 'BASIC ', 'BASIC A', 'BASIC AT', 'BASIC ATK'):
-                self.basic_atk()
+                if missed == False:
+                    attack = self.basic_atk()
+                    return attack
+                
+                elif missed == True:
+                    self.missedatk()
+                    return 0, 0
+
 
 
             elif prompt in ('A', 'AN', 'ANK', 'ANKL', 'ANKLE', 'ANKLE ', 'ANKLE C', 'ANKLE CU', 'ANKLE CUT', 'ANKLE CUTT', 'ANKLE CUTTE', 'ANKLE CUTTER'):
-                self.ankle_cutter()
+                
+                if self.cooldowns["Ankle Cutter - 2"]["active"] == True:
+                    print(f"\nThis move is currently on cooldown ({self.cooldowns["Ankle Cutter - 2"]["timer"]} left)\n")
+                    time.sleep(3)
+
+                elif self.cooldowns["Ankle Cutter - 2"]["active"] == False:
+                    if missed == False:
+                        attack = self.ankle_cutter()
+                        self.cooldowns["Ankle Cutter - 2"]["active"] = True
+                        return attack
+                        
+                    elif missed == True:
+                        self.missedatk()
+                        return 0, 0
+
+
 
 
             elif prompt in ('D', 'DR', 'DRO', 'DROP', 'DROPK', 'DROPKI', 'DROPKIC', 'DROPKICK', 'DROPKICK ','DROPKICK S', 'DROPKICK SL', 'DROPKICK SLA', 'DROPKICK SLAS', 'DROPKICK SLASH'):
-                self.dropkick_slash()
+                
+                if self.cooldowns["Dropkick Slash - 3"]["active"] == True:
+                    print(f"\nThis move is currently on cooldown ({self.cooldowns["Dropkick Slash - 3"]["timer"]} left)\n")
+                    time.sleep(3)
+                
+                elif self.cooldowns["Dropkick Slash - 3"]["active"] == False:
+                    if missed == False:
+                        attack = self.dropkick_slash()
+                        self.cooldowns["Dropkick Slash - 3"]["active"] = True
+                        return attack
+                    
+                    if missed == True:
+                        self.missedatk()
+                        return 0, 0
+
+
+
+
+
 
 
             elif prompt in ('T', 'TH', 'THO', 'THOU', 'THOUS', 'THOUSA', 'THOUSAN', 'THOUSAND', 'THOUSAND ','THOUSAND F', 'THOUSAND FL', 'THOUSAND FLA', 'THOUSAND FLAS', 'THOUSAND FLASH','THOUSAND FLASHS', 'THOUSAND FLASHST', 'THOUSAND FLASHSTE', 'THOUSAND FLASHSTEP'):
-                self.thousand_flashstep()
+                
+                if self.cooldowns["Thousand Flashtep - 4"]["active"] == True:
+                    print(f"\nThis move is currently on cooldown ({self.cooldowns["Thousand Flashtep - 4"]["timer"]} left)\n")
+                    time.sleep(3)
+                
+                elif self.cooldowns["Thousand Flashtep - 4"]["active"] == False:
+                    if missed == False:
+                        attack = self.thousand_flashstep()
+                        self.cooldowns["Thousand Flashtep - 4"]["active"] = True
+                        return attack
+                    
+                    if missed == True:
+                        self.missedatk()
+                        return 0, 0
 
 
             else:
@@ -489,7 +772,7 @@ class Rogue:
         self.bleed = True
         self.bleed_duration = duration
         time.sleep(2)
-        print('\nYou start bleeding.')
+        print('\nYou start bleeding.🩸')
         time.sleep(2)
 
 
@@ -510,9 +793,46 @@ class Rogue:
                 self.isalive = False
 
 
+    def apply_concussed(self, duration=2):
+        self.concussed_duration = duration
+        time.sleep(2)
+        print(f"\nYou become concusssed. 😵‍💫")
+        self.concussed = True
+        self.missrate = 40
 
 
-warrior = Warrior(1,1)
-while True:
-    warrior.move_select()
+    def process_concussed(self):
+        missed = False
+        if self.concussed == True:
+            missmove = random.randint(1,100)
+            
+            if 1 <= missmove <= self.missrate:
+                missed = True
+
+            if missmove >= self.missrate + 1:
+                missed = False
+
+            print(f"\nYour are concussed.. {100 - self.missrate}% of move success")
+            time.sleep(2)
+
+            self.concussed_duration -= 1
+            self.missrate -= 20
+
+            if self.concussed_duration <= 0:
+                self.concussed = False
+                missed = False
+                print("\nYou are no longer concussed")
+
+            if missed == False:
+                return 0
+            if missed == True:
+                return 1
+
+
+
+
+
+#warrior = Warrior(1,1)
+#while True:
+    #warrior.move_select()
 #Could add a greater death scutscene and bar spacer but works for now

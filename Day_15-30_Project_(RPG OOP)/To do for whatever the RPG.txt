@@ -26,10 +26,16 @@ To do for whatever the RPG
     display moves based on cooldown
     used notes from eric list and flee stuff
 
--clean up inconsistency in class information
-
-
+-clean up inconsistency in class informatio
 
 
 -EUREKA!!! 
     USE OOP TO DESIGN MOVE SELECTION AND COOLDOWNS!!!
+
+
+
+
+
+
+Bug list
+    -fix golem bleeding message showing up twice when bleeding ends!
